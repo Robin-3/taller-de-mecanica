@@ -65,10 +65,10 @@ La empresa Taller De Mecánica ofrece servicios de reparación, mantenimiento, e
 Comandos
 -
 
-'''
+```
 npx create-react-app
-'''
+```
 
-'''
+```
 npm start
-'''
+```
