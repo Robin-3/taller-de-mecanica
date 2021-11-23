@@ -1,10 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {Menu} from './Menu'
 
 ReactDOM.render(
-  <h1>
-    Index
-  </h1>,
+  <Menu />,
   document.getElementById('root')
 );
 
