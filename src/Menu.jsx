@@ -1,9 +1,10 @@
 import React from 'react';
+import {Bienvenida} from './Bienvenida';
 
 export function Menu() {
   return (
-    <div className="background">
-      <div className="row align-items-start">
+    <div className="background w-100">
+      <div className="row align-items-start w-100">
         <div className="container col-2 sticky-top backgroundNav">
           <img className="img-fluid" src={process.env.PUBLIC_URL + '/img/logo.png'} alt="Taller de mecánica" />
           <ul className="list-group">
@@ -32,10 +33,7 @@ export function Menu() {
             <li><a href="#" className="btn btn-success w-100">CERRAR SESIÓN</a></li>
           </ul>
         </div>
-        <div className="container col-10 backgroundNav">
-          <h1 className="display-7 text-center">Bienvenido [Nombre del usuario]</h1>
-          <img className="img-fluid" style={{maxHeight: '80vh', margin: 'auto', display: 'block'}} src={process.env.PUBLIC_URL + '/img/usuarios/usuario.jpg'} alt="[Nombre del usuario]"/>
-        </div>
+        <Bienvenida />
       </div>
     </div>
   );
