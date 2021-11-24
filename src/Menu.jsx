@@ -1,5 +1,5 @@
 import React from 'react';
-import {Bienvenida} from './Bienvenida';
+import {Navegador} from './Navegador';
 
 export function Menu() {
   return (
@@ -33,7 +33,7 @@ export function Menu() {
             <li><a href="#" className="btn btn-success w-100">CERRAR SESIÓN</a></li>
           </ul>
         </div>
-        <Bienvenida />
+        <Navegador />
       </div>
     </div>
   );
