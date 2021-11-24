@@ -1,4 +1,5 @@
 import React from 'react';
+import Menu from './Menu';
 import Bienvenida from './Bienvenida';
 import Dashboard from './Dashboard';
 
@@ -10,7 +11,7 @@ export class Navegador extends React.Component {
         dashboard: <Dashboard />,
         bienvenida: <Bienvenida />,
       },
-      actual: 'dashboard'
+      actual: 'bienvenida',
     };
   }
 
@@ -21,9 +22,7 @@ export class Navegador extends React.Component {
     else
       paginaActual = this.state.paginas.bienvenida;
     return (
-      <div className="container col-10 backgroundNav">
-        {paginaActual}
-      </div>
+      <Menu actual={paginaActual} />
     )
   };
 }

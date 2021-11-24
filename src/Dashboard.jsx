@@ -1,42 +1,42 @@
-import React, {Fragment} from 'react';
+import React from 'react';
 
 export default function Dashboard() {
   return (
-    <Fragment>
-      <div className="row">
-        <h2 className="col-8">Dashboard</h2>
-        <p className="col-2">Usuario</p>
-        <img className="col-2" src={process.env.PUBLIC_URL + '/img/usuarios/usuario.jpg'} style={{height: '60px', width: 'auto', margin: 'auto'}} />
-      </div>
+    <section className="container mt-3">
       <div className="container col-10 backgroundNav">
+        <div className="row align-items-center mb-3">
+          <h2 className="text-success col">Dashboard</h2>
+          <div className="col-md-auto">[Usuario]</div>
+          <div className="col-md-auto"><img className="col-2 user-img" src={process.env.PUBLIC_URL + '/img/usuarios/usuario.jpg'} /></div>
+        </div>
         <div className="row">
           <div className="card col-6">
             <div className="card-body">
-              <h5 className="card-tittle text-center">Servicio más utilizado</h5>
-              <p className="card-text text-center">[servicio]</p>
+              <h4 className="card-tittle text-center">Servicio más utilizado</h4>
+              <div className="card-text text-center">[servicio]</div>
             </div>
           </div>
           <div className="card col-6">
             <div className="card-body">
-              <h5 className="card-tittle text-center">Servicio menos utilizado</h5>
-              <p className="card-text text-center">[servicio]</p>
+              <h4 className="card-tittle text-center">Servicio menos utilizado</h4>
+              <div className="card-text text-center">[servicio]</div>
             </div>
           </div>
         </div>
         <div className="row">
           <div className="card col-6">
             <div className="card-body">
-              <h5 className="card-tittle text-center">Listado de mecánicos y sus asignaciones por día</h5>
+              <h4 className="card-tittle text-center">Listado de mecánicos y sus asignaciones por día</h4>
             </div>
           </div>
           <div className="card col-6">
             <div className="card-body">
-              <h5 className="card-tittle text-center">Servicios completados</h5>
+              <h4 className="card-tittle text-center">Servicios completados</h4>
             </div>
           </div>
         </div>
       </div>
-    </Fragment>
+    </section>
   );
 }
 

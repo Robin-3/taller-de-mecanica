@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Menu} from './Menu'
+import {Navegador} from './Navegador'
 
 ReactDOM.render(
-  <Menu />,
+  <Navegador />,
   document.getElementById('root')
 );
 
