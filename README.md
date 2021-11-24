@@ -66,7 +66,7 @@ Comandos
 -
 
 ```
-npx create-react-app
+npx create-react-app taller-de-mecanica
 ```
 
 ```
