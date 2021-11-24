@@ -12,8 +12,10 @@
   list-style: none;
 }
 
-.dropdown-menu > li :hover {
+.dropdown-menu :hover {
   background-color: #157347;
+  color: white;
+  cursor: pointer;
 }
 
 .dropdown-item {
@@ -24,5 +26,9 @@
   max-height: 60px;
   width: auto;
   margin: auto;
+}
+
+h2 {
+  text-transform: uppercase;
 }
 

@@ -6,18 +6,18 @@ export default function Menu(props) {
       <div className="row align-items-start w-100">
         <div className="container col-2 sticky-top backgroundNav" style={{marginLeft: '20px', paddingBottom: '20px',}}>
           <br />
-          <img className="img-fluid" src={process.env.PUBLIC_URL + '/img/logo.png'} alt="Taller de mecánica" />
+          <img className="img-fluid" src={process.env.PUBLIC_URL + '/img/logo.png'} alt="Taller de mecánica" onClick={() => props.cargarPagina('bienvenida')} />
           <br />
           <br />
           <ul className="list-group">
-            <li><a href="#" className=" btn btn-success w-100">DASHBOARD</a></li>
+            <li onClick={() => props.cargarPagina('dashboard')} className=" btn btn-success w-100">DASHBOARD</li>
             <li>
               <div className="btn-group dropend w-100" role="group">
                 <button className="btn btn-success dropdown-toggle w-100" data-bs-toggle="dropdown" aria-expanded="false">VEHÍCULOS</button>
                 <ul className="dropdown-menu">
-                  <li><a href="#" className="dropdown-item">REGISTRO</a></li>
-                  <li><a href="#" className="dropdown-item">CITA</a></li>
-                  <li><a href="#" className="dropdown-item">AGENDA</a></li>
+                  <li className="dropdown-item">REGISTRO</li>
+                  <li className="dropdown-item">CITA</li>
+                  <li className="dropdown-item">AGENDA</li>
                 </ul>
               </div>
             </li>
@@ -25,14 +25,14 @@ export default function Menu(props) {
               <div className="btn-group dropend w-100" role="group">
                 <button className="btn btn-success dropdown-toggle w-100" data-bs-toggle="dropdown" aria-expanded="false">SERVICIOS</button>
                 <ul className="dropdown-menu">
-                  <li><a href="#" className="dropdown-item">CONFIGURAR</a></li>
-                  <li><a href="#" className="dropdown-item">ASIGNAR</a></li>
+                  <li className="dropdown-item">CONFIGURAR</li>
+                  <li className="dropdown-item">ASIGNAR</li>
                 </ul>
               </div>
             </li>
-            <li><a href="#" className="btn btn-success w-100">LISTADO DE ASIGNACIONES</a></li>
-            <li><a href="#" className="btn btn-success w-100">USUARIOS</a></li>
-            <li><a href="#" className="btn btn-success w-100">CERRAR SESIÓN</a></li>
+            <li className="btn btn-success w-100">LISTADO DE ASIGNACIONES</li>
+            <li className="btn btn-success w-100">USUARIOS</li>
+            <li className="btn btn-success w-100">CERRAR SESIÓN</li>
           </ul>
         </div>
         <div className="container col-9 backgroundNav" style={{marginLeft: '20px', marginBottom: '20px', textAlign: 'center',}}>{props.actual}</div>

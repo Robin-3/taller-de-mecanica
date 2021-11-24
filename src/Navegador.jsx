@@ -8,8 +8,8 @@ export class Navegador extends React.Component {
     super(props);
     this.state = {
       paginas: {
-        dashboard: <Dashboard />,
         bienvenida: <Bienvenida />,
+        dashboard: <Dashboard />,
       },
       actual: 'bienvenida',
     };
@@ -21,8 +21,9 @@ export class Navegador extends React.Component {
       paginaActual = this.state.paginas.dashboard;
     else
       paginaActual = this.state.paginas.bienvenida;
+
     return (
-      <Menu actual={paginaActual} />
+      <Menu actual={paginaActual} cargarPagina={(p) => this.setState({actual: p})} />
     )
   };
 }

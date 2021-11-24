@@ -7,7 +7,7 @@ export default function Dashboard() {
         <div className="row align-items-center mb-3">
           <h2 className="text-success col">Dashboard</h2>
           <div className="col-md-auto">[Usuario]</div>
-          <div className="col-md-auto"><img className="col-2 user-img" src={process.env.PUBLIC_URL + '/img/usuarios/usuario.jpg'} /></div>
+          <div className="col-md-auto"><img className="col-2 user-img" src={process.env.PUBLIC_URL + '/img/usuarios/usuario.jpg'} alt="[Nombre de usuario]" /></div>
         </div>
         <div className="row">
           <div className="card col-6">
