@@ -59,8 +59,8 @@ La empresa Taller De Mecánica ofrece servicios de reparación, mantenimiento, e
   - [ ] Una API back end
   - [ ] Un front end que consuma dicha API.
 - [ ] La API back end debe estar desarrollada en Express.js.
-- [ ] El front end debe estar desarrollado en React.js.
-- [ ] Se debe utilizar Bootstrap como librería CSS para manejar los estilos de su aplicación.
+- [X] El front end debe estar desarrollado en React.js.
+- [X] Se debe utilizar Bootstrap como librería CSS para manejar los estilos de su aplicación.
 
 Comandos
 -

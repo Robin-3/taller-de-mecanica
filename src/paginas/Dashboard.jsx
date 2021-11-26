@@ -1,13 +1,13 @@
 import React from 'react';
 
-export default function Dashboard() {
+export default function Dashboard(props) {
   return (
     <section className="container mt-3">
       <div className="container col-10 backgroundNav">
         <div className="row align-items-center mb-3">
           <h2 className="text-success col">Dashboard</h2>
-          <div className="col-md-auto">[Usuario]</div>
-          <div className="col-md-auto"><img className="col-2 user-img" src={process.env.PUBLIC_URL + '/img/usuarios/usuario.jpg'} alt="[Nombre de usuario]" /></div>
+          <div className="col-md-auto">{props.usuario.nombre}</div>
+          <div className="col-md-auto">{props.usuario.img}</div>
         </div>
         <div className="row">
           <div className="card col-6">
