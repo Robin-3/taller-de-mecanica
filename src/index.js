@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Navegador} from './Navegador'
+import {Navegador} from './Navegador';
 
 ReactDOM.render(
   <Navegador />,

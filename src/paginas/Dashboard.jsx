@@ -38,5 +38,5 @@ export default function Dashboard(props) {
       </div>
     </section>
   );
-}
+};
 

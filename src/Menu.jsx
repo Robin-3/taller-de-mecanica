@@ -32,12 +32,12 @@ export default function Menu(props) {
             </li>
             <li className="btn btn-success w-100">LISTADO DE ASIGNACIONES</li>
             <li className="btn btn-success w-100">USUARIOS</li>
-            <li className="btn btn-success w-100">CERRAR SESIÓN</li>
+            <li className="btn btn-success w-100" onClick={() => props.cerrarSesion()}>CERRAR SESIÓN</li>
           </ul>
         </div>
         <div className="container col-9 backgroundNav" style={{marginLeft: '20px', marginBottom: '20px', textAlign: 'center',}}>{props.actual}</div>
       </div>
     </div>
   );
-}
+};
 

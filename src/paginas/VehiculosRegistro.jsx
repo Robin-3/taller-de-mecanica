@@ -11,9 +11,9 @@ export default class VehiculosRegistro extends React.Component {
       combustible: '',
       transmision: '',
       motor: '',
-      imagen: '',
-    }
-  }
+      imagen: {},
+    };
+  };
 
   render() {
     return (
@@ -55,5 +55,5 @@ export default class VehiculosRegistro extends React.Component {
       </section>
     );
   };
-}
+};
 
