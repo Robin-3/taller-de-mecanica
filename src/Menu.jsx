@@ -10,7 +10,7 @@ export default function Menu(props) {
           <br />
           <br />
           <ul className="list-group">
-            <li onClick={() => props.cargarPagina('dashboard')} className=" btn btn-success w-100">DASHBOARD</li>
+            <li onClick={() => props.cargarPagina('dashboard')} className="btn btn-success w-100">DASHBOARD</li>
             <li>
               <div className="btn-group dropend w-100" role="group">
                 <button className="btn btn-success dropdown-toggle w-100" data-bs-toggle="dropdown" aria-expanded="false">VEHÍCULOS</button>

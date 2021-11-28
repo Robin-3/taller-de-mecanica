@@ -26,7 +26,7 @@ export default function Dashboard(props) {
         <div className="row">
           <div className="card col-6">
             <div className="card-body">
-              <h4 className="card-tittle text-center">Listado de mecánicos y sus asignaciones por día</h4>
+              <h4 className="card-tittle text-center" onClick={() => props.cargarSubpagina('dashboardMecanicos')} style={{cursor: 'pointer'}}>Listado de mecánicos y sus asignaciones por día</h4>
             </div>
           </div>
           <div className="card col-6">

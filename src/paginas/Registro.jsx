@@ -8,7 +8,7 @@ export default class Registro extends React.Component {
       identificacion: '',
       contrasena: '',
     };
-  }
+  };
 
   render() {
     return (
@@ -46,5 +46,5 @@ export default class Registro extends React.Component {
       </div>
     );
   };
-}
+};
 
