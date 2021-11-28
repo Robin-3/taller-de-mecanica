@@ -31,7 +31,7 @@ export default function Dashboard(props) {
           </div>
           <div className="card col-6">
             <div className="card-body">
-              <h4 className="card-tittle text-center">Servicios completados</h4>
+              <h4 className="card-tittle text-center" onClick={() => props.cargarSubpagina('dashboardServicios')} style={{cursor: 'pointer'}}>Servicios completados</h4>
             </div>
           </div>
         </div>

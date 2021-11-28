@@ -11,13 +11,15 @@ export default function DashboardMecanicos(props) {
         </div>
         {props.mecanicos.map((filaMecanicos, index) =>
           <div key={index} className="row">
-            {filaMecanicos.map(mecanico =>
+            {filaMecanicos.map((mecanico) =>
               <div key={mecanico.id} className="col">
                 <div className="card bg-success">
                   <div className="row">
                     <div className="card-body">
                       <ul className="list-group list-group-flush">
-                        {Object.keys(mecanico.servicios).map(servicio => <li key={mecanico.id+'-'+servicio} className="list-group-item bg-success">{servicio+': '+mecanico.servicios[servicio]}</li>)}
+                        {Object.keys(mecanico.servicios).map((servicio) =>
+                          <li key={mecanico.id+'-'+servicio} className="list-group-item bg-success">{servicio+': '+mecanico.servicios[servicio]}</li>
+                        )}
                       </ul>
                     </div>
                   </div>

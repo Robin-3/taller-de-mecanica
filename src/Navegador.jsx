@@ -4,6 +4,7 @@ import Registro from './paginas/Registro';
 import Bienvenida from './paginas/Bienvenida';
 import Dashboard from './paginas/Dashboard';
 import DashboardMecanicos from './paginas/DashboardMecanicos';
+import DashboardServicios from './paginas/DashboardServicios';
 import VehiculosRegistro from './paginas/VehiculosRegistro';
 
 export class Navegador extends React.Component {
@@ -37,6 +38,20 @@ export class Navegador extends React.Component {
 
       return <DashboardMecanicos usuario={usuario} mecanicos={this.listaATabla(mecanicos, 3)} />;
     }
+    if(this.state.actual === 'dashboardServicios') {
+      const servicios = {
+        'Revisión de frenos': 45,
+        'Pastillas': 12,
+        'Discos': 23,
+        'Suspención': 34,
+        'Amortiguadores': 0,
+        'Cambio de aceite': 56,
+        'Alineación': 0,
+        'Rotación de llantas': 0,
+      };
+
+      return <DashboardServicios usuario={usuario} servicios={servicios}/>;
+    }
     if(this.state.actual === 'vehiculosRegistro')
       return <VehiculosRegistro usuario={usuario} />;
     return <Bienvenida usuarioNombre={this.state.usuario.nombre} usuarioImagen={this.state.usuario.imagen} />
@@ -44,7 +59,8 @@ export class Navegador extends React.Component {
 
   validarRegistro(registroDatos) {
     console.log(registroDatos);
-    this.setState({registrado: true});
+
+    this.setState({registrado: true, actual: 'bienvenida'});
   };
 
   listaATabla(lista, numeroColumnas) {
