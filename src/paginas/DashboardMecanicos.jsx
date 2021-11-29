@@ -1,14 +1,11 @@
 import React from 'react';
+import HeaderInfo from '../componentes/HeaderInfo';
 
 export default function DashboardMecanicos(props) {
   return (
     <section className="container mt-3">
       <div className="container col-10 backgroundNav">
-        <div className="row align-items-center mb-3">
-          <h2 className="text-success col">Listado de mecánicos y sus asignaciones por día</h2>
-          <div className="col-md-auto">{props.usuario.nombre}</div>
-          <div className="col-md-auto">{props.usuario.img}</div>
-        </div>
+        <HeaderInfo titulo="Listado de mecánicos y sus asignaciones por día" usuarioNombre={props.usuario.nombre} usuarioImagen={props.usuario.img} />
         {props.mecanicos.map((filaMecanicos, index) =>
           <div key={index} className="row">
             {filaMecanicos.map((mecanico) =>

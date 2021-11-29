@@ -1,14 +1,11 @@
 import React from 'react';
+import HeaderInfo from '../componentes/HeaderInfo';
 
 export default function Dashboard(props) {
   return (
     <section className="container mt-3">
       <div className="container col-10 backgroundNav">
-        <div className="row align-items-center mb-3">
-          <h2 className="text-success col">Dashboard</h2>
-          <div className="col-md-auto">{props.usuario.nombre}</div>
-          <div className="col-md-auto">{props.usuario.img}</div>
-        </div>
+        <HeaderInfo titulo="Dashboard" usuarioNombre={props.usuario.nombre} usuarioImagen={props.usuario.img} />
         <div className="row">
           <div className="card col-6">
             <div className="card-body">

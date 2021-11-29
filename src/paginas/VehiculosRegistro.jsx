@@ -1,4 +1,5 @@
 import React from 'react';
+import HeaderInfo from '../componentes/HeaderInfo';
 import InputText from '../componentes/InputText.jsx';
 
 export default class VehiculosRegistro extends React.Component {
@@ -19,11 +20,7 @@ export default class VehiculosRegistro extends React.Component {
     return (
       <section className="container mt-3">
         <div className="container col-10 backgroundNav">
-          <div className="row align-items-center mb-3">
-            <h2 className="text-success col">Registro de vehículos</h2>
-            <div className="col-md-auto">{this.props.usuario.nombre}</div>
-            <div className="col-md-auto">{this.props.usuario.img}</div>
-          </div>
+          <HeaderInfo titulo="Registro de vehículos" usuarioNombre={this.props.usuario.nombre} usuarioImagen={this.props.usuario.img} />
           <form action="" method="post" encType="multipart/form-data">
             <div className="row">
               <InputText classInput="col-8" id="placa-vehiculo" label="Placa" classLabel="col-2" obtenerInfo={(dato) => this.setState({placa: dato})} />

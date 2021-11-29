@@ -6,12 +6,13 @@ import Dashboard from './paginas/Dashboard';
 import DashboardMecanicos from './paginas/DashboardMecanicos';
 import DashboardServicios from './paginas/DashboardServicios';
 import VehiculosRegistro from './paginas/VehiculosRegistro';
+import VehiculosCita from './paginas/VehiculosCita';
 
 export class Navegador extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      actual: 'bienvenida',
+      actual: 'vehiculosCita',
       registrado: true,
       usuario: {
         id: 123,
@@ -29,10 +30,10 @@ export class Navegador extends React.Component {
       return <Dashboard usuario={usuario} cargarSubpagina={(p) => this.setState({actual: p})} />;
     if(this.state.actual === 'dashboardMecanicos') {
       const mecanicos = [
-        {id: 'M01', nombre: 'L', servicios: {"Pastillas": 12,}, img: 'ele.jpg',},
+        {id: 'M01', nombre: 'L', servicios: {'Pastillas': 12,}, img: 'ele.jpg',},
         {id: 'M02', nombre: 'Usuario', servicios: {}, img: 'usuario.jpg',},
-        {id: 'M03', nombre: 'Juleka', servicios: {"Discos": 23, "Suspencion": 34, "Revisión de frenos": 45}, img: 'juleka.jpg',},
-        {id: 'M04', nombre: 'Kido', servicios: {"Cambio de aceite": 56,}, img: 'kido.jpg',},
+        {id: 'M03', nombre: 'Juleka', servicios: {'Discos': 23, 'Suspencion': 34, 'Revisión de frenos': 45}, img: 'juleka.jpg',},
+        {id: 'M04', nombre: 'Kido', servicios: {'Cambio de aceite': 56,}, img: 'kido.jpg',},
       ];
       mecanicos.forEach(datos => datos.img = <img className="img-fluid user-img" src={process.env.PUBLIC_URL + '/img/usuarios/' + datos.img} alt={datos.nombre} />);
 
@@ -54,6 +55,8 @@ export class Navegador extends React.Component {
     }
     if(this.state.actual === 'vehiculosRegistro')
       return <VehiculosRegistro usuario={usuario} />;
+    if(this.state.actual === 'vehiculosCita')
+      return <VehiculosCita usuario={usuario} />;
     return <Bienvenida usuarioNombre={this.state.usuario.nombre} usuarioImagen={this.state.usuario.imagen} />
   };
 

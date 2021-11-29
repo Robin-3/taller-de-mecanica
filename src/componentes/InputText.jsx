@@ -7,5 +7,5 @@ export default function InputText(props) {
       <input type={props.type || "text"} id={props.id} className={props.classInput} onChange={(e) => props.obtenerInfo(e.target.value)} />
     </React.Fragment>
   );
-}
+};
 

@@ -1,14 +1,11 @@
 import React from 'react';
+import HeaderInfo from '../componentes/HeaderInfo';
 
 export default function DashboardServicios(props) {
   return (
     <section className="container mt-3">
       <div className="container col-10 backgroundNav">
-        <div className="row align-items-center mb-3">
-          <h2 className="text-success col">Servicios completados</h2>
-          <div className="col-md-auto">{props.usuario.nombre}</div>
-          <div className="col-md-auto">{props.usuario.img}</div>
-        </div>
+        <HeaderInfo titulo="Servicios completados" usuarioNombre={props.usuario.nombre} usuarioImagen={props.usuario.img} />
         <div className="row">
           <ul className="list-group list-group-flush">
             {Object.keys(props.servicios).map((servicio) =>
@@ -19,5 +16,5 @@ export default function DashboardServicios(props) {
       </div>
     </section>
   );
-}
+};
 
