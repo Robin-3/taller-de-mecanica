@@ -1,4 +1,5 @@
 import React from 'react';
+import MensajeError from '../componentes/MensajeError';
 import InputText from '../componentes/InputText';
 
 export default class Registro extends React.Component {
@@ -20,6 +21,7 @@ export default class Registro extends React.Component {
             </div>
             <br />
             <br />
+            <MensajeError error={this.props.error} />
             <div className="row text-center">
             <div className="col-2"></div>
             <div className="col-8">

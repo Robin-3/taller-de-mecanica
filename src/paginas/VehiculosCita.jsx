@@ -1,6 +1,7 @@
 import React from 'react';
 import HeaderInfo from '../componentes/HeaderInfo';
-import InputText from '../componentes/InputText.jsx';
+import MensajeError from '../componentes/MensajeError';
+import InputText from '../componentes/InputText';
 import InputList from '../componentes/InputList';
 
 export default class VehiculosCita extends React.Component {
@@ -9,10 +10,17 @@ export default class VehiculosCita extends React.Component {
     this.state = {
       placa: '',
       citas: [],
+      error: null,
+      busqueda: false,
     };
   };
 
   buscarCitas() {
+    if(this.state.placa === '') {
+      this.setState({error: 'Debe de ingresar una placa'});
+      return;
+    }
+
     const cita = {
       'placa': this.state.placa,
       'servicio': document.getElementById('servicio-vehiculo').value,
@@ -27,7 +35,7 @@ export default class VehiculosCita extends React.Component {
       {asignado: false, fecha: new Date(2021, 12, 6), mecanico: 'Usuario',},
       {asignado: false, fecha: new Date(2021, 12, 6), mecanico: 'Kido',},
     ];
-    this.setState({citas: citas});
+    this.setState({citas: citas, error: null, busqueda: true});
   };
 
   actualizarAsignacion(index) {
@@ -38,6 +46,15 @@ export default class VehiculosCita extends React.Component {
   };
 
   guardarCambios() {
+    if(this.state.placa === '') {
+      this.setState({error: 'Debe de ingresar una placa'});
+      return;
+    }
+    if(!this.state.busqueda) {
+      this.setState({error: 'Realiza la búsqueda del servicio'});
+      return;
+    }
+
     const citas = {
       'placa': this.state.placa,
       'servicio': document.getElementById('servicio-vehiculo').value,
@@ -54,6 +71,7 @@ export default class VehiculosCita extends React.Component {
     console.log('Cita reservada para:');
     console.log(citas);
 
+    this.setState({error: null, busqueda: false, citas: []});
   }
 
   render() {
@@ -61,6 +79,7 @@ export default class VehiculosCita extends React.Component {
       <section className="container mt-3">
         <div className="container col-10 backgroundNav">
           <HeaderInfo titulo="Programar/Cancelar citas" usuarioNombre={this.props.usuario.nombre} usuarioImagen={this.props.usuario.img} />
+          <MensajeError error={this.state.error} />
           <div className="row">
             <InputText classInput="col-3" id="placa-vehiculo" label="Placa" classLabel="col-2" obtenerInfo={(dato) => this.setState({placa: dato})} />
             <InputList classInput="col-3" id="servicio-vehiculo" label="Servicio" classLabel="col-2" opciones={['revisión-de-frenos', 'pastillas', 'alineación', 'rotación-de-llantas',]} />

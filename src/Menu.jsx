@@ -10,28 +10,39 @@ export default function Menu(props) {
           <br />
           <br />
           <ul className="list-group">
-            <li onClick={() => props.cargarPagina('dashboard')} className="btn btn-success w-100">DASHBOARD</li>
-            <li>
-              <div className="btn-group dropend w-100" role="group">
-                <button className="btn btn-success dropdown-toggle w-100" data-bs-toggle="dropdown" aria-expanded="false">VEHÍCULOS</button>
-                <ul className="dropdown-menu">
-                  <li className="dropdown-item" onClick={() => props.cargarPagina('vehiculosRegistro')}>REGISTRO</li>
-                  <li className="dropdown-item" onClick={() => props.cargarPagina('vehiculosCita')}>CITA</li>
-                  <li className="dropdown-item">AGENDA</li>
-                </ul>
-              </div>
-            </li>
-            <li>
-              <div className="btn-group dropend w-100" role="group">
-                <button className="btn btn-success dropdown-toggle w-100" data-bs-toggle="dropdown" aria-expanded="false">SERVICIOS</button>
-                <ul className="dropdown-menu">
-                  <li className="dropdown-item">CONFIGURAR</li>
-                  <li className="dropdown-item">ASIGNAR</li>
-                </ul>
-              </div>
-            </li>
-            <li className="btn btn-success w-100">LISTADO DE ASIGNACIONES</li>
-            <li className="btn btn-success w-100">USUARIOS</li>
+            {(props.rol === 'planta' || props.rol === 'administrador')?
+              <React.Fragment>
+                <li onClick={() => props.cargarPagina('dashboard')} className="btn btn-success w-100">DASHBOARD</li>
+                <li>
+                  <div className="btn-group dropend w-100" role="group">
+                    <button className="btn btn-success dropdown-toggle w-100" data-bs-toggle="dropdown" aria-expanded="false">VEHÍCULOS</button>
+                    <ul className="dropdown-menu">
+                      <li className="dropdown-item" onClick={() => props.cargarPagina('vehiculosRegistro')}>REGISTRO</li>
+                      <li className="dropdown-item" onClick={() => props.cargarPagina('vehiculosCita')}>CITA</li>
+                      <li className="dropdown-item" onClick={() => props.cargarPagina('vehiculosAgenda')}>AGENDA</li>
+                    </ul>
+                  </div>
+                </li>
+                <li>
+                  <div className="btn-group dropend w-100" role="group">
+                    <button className="btn btn-success dropdown-toggle w-100" data-bs-toggle="dropdown" aria-expanded="false">SERVICIOS</button>
+                    <ul className="dropdown-menu">
+                      <li className="dropdown-item">CONFIGURAR</li>
+                      <li className="dropdown-item">ASIGNAR</li>
+                    </ul>
+                  </div>
+                </li>
+              </React.Fragment>:
+              <React.Fragment></React.Fragment>
+            }
+            {(props.rol === 'mecánico' || props.rol === 'administrador')?
+              <li className="btn btn-success w-100">LISTADO DE ASIGNACIONES</li>:
+              <React.Fragment></React.Fragment>
+            }
+            {(props.rol === 'mecanico' || props.rol === 'administrador')?
+              <li className="btn btn-success w-100">USUARIOS</li>:
+              <React.Fragment></React.Fragment>
+            }
             <li className="btn btn-success w-100" onClick={() => props.cerrarSesion()}>CERRAR SESIÓN</li>
           </ul>
         </div>
