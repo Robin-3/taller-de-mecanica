@@ -4,6 +4,7 @@ La empresa Taller De Mecánica ofrece servicios de reparación, mantenimiento, e
 
 - [ ] [Usuarios](#usuarios)
 - [ ] [Requisitos](#requisitos)
+- [ ] [Comandos](#comandos)
 
 ## Usuarios
 
@@ -59,16 +60,25 @@ La empresa Taller De Mecánica ofrece servicios de reparación, mantenimiento, e
   - [ ] Una API back end
   - [ ] Un front end que consuma dicha API.
 - [ ] La API back end debe estar desarrollada en Express.js.
-- [X] El front end debe estar desarrollado en React.js.
-- [X] Se debe utilizar Bootstrap como librería CSS para manejar los estilos de su aplicación.
+- [x] El front end debe estar desarrollado en React.js.
+- [x] Se debe utilizar Bootstrap como librería CSS para manejar los estilos de su aplicación.
 
-Comandos
--
+## Comandos
 
-```
-npx create-react-app taller-de-mecanica
-```
+> Crear un proyecto de React
+> ```bash
+> npx create-react-app taller-de-mecanica
+> ```
 
-```
-npm start
-```
+> Clonar el proyecto
+> ```bash
+> git clone https://github.com/Robin-3/taller-de-mecanica.git
+> cd taller-de-mecanica
+> npm i
+> ```
+
+> Iniciar el servidor
+> ```bash
+> npm start
+> ```
+
