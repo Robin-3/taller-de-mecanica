@@ -95,19 +95,21 @@ export class Navegador extends React.Component {
 
         return <ServiciosConfigurar usuario={usuario} servicios={this.listaATabla(servicios, 2)} configurarServicio={(dato) => console.log('Cambiando datos: ', dato)} />;
       }
-      if(this.state.actual === 'ListadoAsignaciones'){
+    }
+    if(this.state.usuario.rol === 'mecánico' || this.state.usuario.rol === 'administrador') {
+      if(this.state.actual === 'listadoAsignaciones'){
         const asignaciones = [
           {servicio: 'Revision de frenos' ,fecha: new Date(2021, 12, 2, 13), estado: 'Pendiente'},
-          {servicio: 'Alineación' ,fecha: new Date(2021, 1, 3, 16), estado: 'Pendiente'},
-          {servicio: 'Discos' ,fecha: new Date(2021, 12, 15, 13), estado: 'Pendiente'},
-          {servicio: 'Discos' ,fecha: new Date(2021, 12, 20, 11), estado: 'Pendiente'},
-          {servicio: 'Suspención' ,fecha: new Date(2021, 12, 5, 13), estado: 'Pendiente'},
+          {servicio: 'Alineación', fecha: new Date(2021, 1, 3, 16), estado: 'Pendiente',},
+          {servicio: 'Discos', fecha: new Date(2021, 12, 15, 13), estado: 'Pendiente',},
+          {servicio: 'Discos', fecha: new Date(2021, 12, 20, 11), estado: 'Pendiente',},
+          {servicio: 'Suspención', fecha: new Date(2021, 12, 5, 13), estado: 'Pendiente',},
         ];
-        return <ListadoAsignaciones usuario={usuario} asignaciones={asignaciones} />;
+        return <ListadoAsignaciones usuario={usuario} asignaciones={asignaciones} cargarSubpagina={(p) => this.setState({actual: p})}/>;
       }
-      if(this.state.actual === 'EstadoVehiculo')
+      if(this.state.actual === 'estadoVehiculo') {
         return <EstadoVehiculo usuario={usuario} />;
-      
+      }
     }
 
     return <Bienvenida usuarioNombre={this.state.usuario.nombre} usuarioImagen={this.state.usuario.imagen} />
