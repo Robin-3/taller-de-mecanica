@@ -9,12 +9,14 @@ import VehiculosRegistro from './paginas/VehiculosRegistro';
 import VehiculosCita from './paginas/VehiculosCita';
 import VehiculosAgenda from './paginas/VehiculosAgenda';
 import ServiciosConfigurar from './paginas/ServiciosConfigurar';
+import ListadoAsignaciones from './paginas/ListadoAsignaciones';
+import EstadoVehiculo from './paginas/EstadoVehiculo';
 
 export class Navegador extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      actual: 'serviciosConfigurar',
+      actual: 'bienvenida',
       errorUsuario: null,
       registrado: true,
       usuario: {
@@ -93,6 +95,19 @@ export class Navegador extends React.Component {
 
         return <ServiciosConfigurar usuario={usuario} servicios={this.listaATabla(servicios, 2)} configurarServicio={(dato) => console.log('Cambiando datos: ', dato)} />;
       }
+      if(this.state.actual === 'ListadoAsignaciones'){
+        const asignaciones = [
+          {servicio: 'Revision de frenos' ,fecha: new Date(2021, 12, 2, 13), estado: 'Pendiente'},
+          {servicio: 'Alineación' ,fecha: new Date(2021, 1, 3, 16), estado: 'Pendiente'},
+          {servicio: 'Discos' ,fecha: new Date(2021, 12, 15, 13), estado: 'Pendiente'},
+          {servicio: 'Discos' ,fecha: new Date(2021, 12, 20, 11), estado: 'Pendiente'},
+          {servicio: 'Suspención' ,fecha: new Date(2021, 12, 5, 13), estado: 'Pendiente'},
+        ];
+        return <ListadoAsignaciones usuario={usuario} asignaciones={asignaciones} />;
+      }
+      if(this.state.actual === 'EstadoVehiculo')
+        return <EstadoVehiculo usuario={usuario} />;
+      
     }
 
     return <Bienvenida usuarioNombre={this.state.usuario.nombre} usuarioImagen={this.state.usuario.imagen} />
