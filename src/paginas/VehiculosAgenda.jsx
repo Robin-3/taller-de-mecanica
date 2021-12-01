@@ -18,14 +18,14 @@ export default function VehiculosAgenda(props) {
           </div>
         </div>
         {props.agenda.map((item, index) =>
-          <div key={index} className="row">
-            <div className="col-4">
+          <div key={index} className="row border-top border-bottom">
+            <div className="col-4 align-self-center">
               {item.fecha.toString()}
             </div>
-            <div className="col-4">
+            <div className="col-4 align-self-center">
               {item.servicio}
             </div>
-            <div className="col-4">
+            <div className="col-4 align-self-center">
               {item.mecanico}
             </div>
           </div>

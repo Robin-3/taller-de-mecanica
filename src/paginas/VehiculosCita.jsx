@@ -12,7 +12,18 @@ export default class VehiculosCita extends React.Component {
       citas: [],
       error: null,
       busqueda: false,
+      servicios: ['revisión-de-frenos', 'pastillas', 'alineación', 'rotación-de-llantas',],
+      servicio: 0,
+      servicioDescripcion: ['Es una técnica de conducción deportiva que hace más eficaz la frenada, además de evitar el desgaste y el sobrecalentamiento del sistema de frenos.', 'El promedio de duración de las pastillas es de 75.000 km dependiendo del uso y la marca, a estos dos factores hay que agregarle otras variables como el tipo de material (orgánico, semimetálico, metálico, sintético) o el modelo de vehículo.', 'En términos simples, la alineación de un vehículo es un proceso que permite ajustar los ángulos de las ruedas, manteniéndolas perpendiculares al suelo y paralelas entre sí.', 'A grandes rasgos la rotación de llantas hace referencia al tener que intercambiar la posición de las ruedas para asegurar que su desgaste sea uniforme, lo que propicia que la vida útil de las mismas se prolongue.',],
+      servicioCosto: ['8000', '35000', '40000', '5000',],
+      servicioDuracion: ['10 min', '30 min', '55 min', '5 min',],
     };
+  };
+
+  cargarServicio(servicio) {
+    const servicioIndex = this.state.servicios.indexOf(servicio);
+
+    this.setState({servicio: servicioIndex});
   };
 
   buscarCitas() {
@@ -26,8 +37,8 @@ export default class VehiculosCita extends React.Component {
       'servicio': document.getElementById('servicio-vehiculo').value,
     };
 
-    console.log('Buscando citas para:');
-    console.log(cita);
+    console.log('Buscando citas para:', cita);
+
     const citas = [
       {asignado: true, fecha: new Date(2021, 12, 2), mecanico: 'L',},
       {asignado: false, fecha: new Date(2021, 12, 2), mecanico: 'Usuario',},
@@ -35,6 +46,7 @@ export default class VehiculosCita extends React.Component {
       {asignado: false, fecha: new Date(2021, 12, 6), mecanico: 'Usuario',},
       {asignado: false, fecha: new Date(2021, 12, 6), mecanico: 'Kido',},
     ];
+
     this.setState({citas: citas, error: null, busqueda: true});
   };
 
@@ -62,14 +74,14 @@ export default class VehiculosCita extends React.Component {
     };
 
     let citasConfirmadas = [];
+
     for(const cita of this.state.citas)
       if(cita.asignado)
         citasConfirmadas.push(cita);
 
     citas.asignados = citasConfirmadas;
 
-    console.log('Cita reservada para:');
-    console.log(citas);
+    console.log('Cita reservada para: ', citas);
 
     this.setState({error: null, busqueda: false, citas: []});
   }
@@ -82,8 +94,13 @@ export default class VehiculosCita extends React.Component {
           <MensajeError error={this.state.error} />
           <div className="row">
             <InputText classInput="col-3" id="placa-vehiculo" label="Placa" classLabel="col-2" obtenerInfo={(dato) => this.setState({placa: dato})} />
-            <InputList classInput="col-3" id="servicio-vehiculo" label="Servicio" classLabel="col-2" opciones={['revisión-de-frenos', 'pastillas', 'alineación', 'rotación-de-llantas',]} />
+            <InputList classInput="col-3" id="servicio-vehiculo" label="Servicio" classLabel="col-2" opciones={this.state.servicios} obtenerInfo={(dato) => this.cargarServicio(dato)} />
             <button className="btn btn-success col-2" onClick={() => this.buscarCitas()}>Buscar</button>
+          </div>
+          <div className="row">
+            <div className="col">{this.state.servicioDescripcion[this.state.servicio]}</div>
+            <div className="col-md-auto">{new Intl.NumberFormat("es-CO", {style: "currency", currency: "COP"}).format(this.state.servicioCosto[this.state.servicio])}</div>
+            <div className="col-md-auto">{this.state.servicioDuracion[this.state.servicio]}</div>
           </div>
           <hr />
           <div className="row">
@@ -98,14 +115,14 @@ export default class VehiculosCita extends React.Component {
             </div>
           </div>
           {this.state.citas.map((cita, index) =>
-            <div key={index} className="row">
-              <div className="col-4">
+            <div key={index} className="row border-top border-bottom">
+              <div className="col-4 align-self-center">
                 <input type="checkbox" id={index} checked={cita.asignado} onChange={() => this.actualizarAsignacion(index)} />
               </div>
-              <div className="col-4">
+              <div className="col-4 align-self-center">
                 <label htmlFor={index}>{cita.fecha.toString()}</label>
               </div>
-              <div className="col-4">
+              <div className="col-4 align-self-center">
                 <label htmlFor={index}>{cita.mecanico}</label>
               </div>
             </div>

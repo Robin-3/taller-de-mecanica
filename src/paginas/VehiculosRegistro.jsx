@@ -28,8 +28,7 @@ export default class VehiculosRegistro extends React.Component {
       placa: this.state.placa,
     };
 
-    console.log('Eliminando vehículo:');
-    console.log(vehiculo);
+    console.log('Eliminando vehículo:', vehiculo);
 
     this.setState({error: null});
   };
@@ -42,8 +41,7 @@ export default class VehiculosRegistro extends React.Component {
 
     const vehiculo = (({error, ...vehiculo}) => vehiculo)(this.state);
 
-    console.log('Actualizando vehículo:');
-    console.log(vehiculo);
+    console.log('Actualizando vehículo:', vehiculo);
 
     this.setState({error: null});
   };

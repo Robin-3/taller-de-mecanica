@@ -9,14 +9,14 @@ export default function Dashboard(props) {
         <div className="row">
           <div className="card col-6">
             <div className="card-body">
-              <h4 className="card-tittle text-center">Servicio más utilizado</h4>
-              <div className="card-text text-center">[servicio]</div>
+              <h4 className="card-tittle text-center">{'Servicio'+(props.mas.length===1? '': 's')+' más utilizado'+(props.mas.length===1? '': 's')}</h4>
+              <div className="card-text text-center">{props.mas.join(', ')}</div>
             </div>
           </div>
           <div className="card col-6">
             <div className="card-body">
-              <h4 className="card-tittle text-center">Servicio menos utilizado</h4>
-              <div className="card-text text-center">[servicio]</div>
+              <h4 className="card-tittle text-center">{'Servicio'+(props.menos.length===1? '': 's')+' menos utilizado'+(props.menos.length===1? '': 's')}</h4>
+              <div className="card-text text-center">{props.menos.join(', ')}</div>
             </div>
           </div>
         </div>
