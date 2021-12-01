@@ -6,7 +6,7 @@ export default function ListadoAsignaciones(props) {
   return (
     <section className="container mt-3" style = {{margin:'100px 2px'}}>
       <div className="container col-10 backgroundNav">
-        <HeaderInfo titulo="Lidtado de asignaciones" usuarioNombre={props.usuario.nombre} usuarioImagen={props.usuario.img} />
+        <HeaderInfo titulo="Listado de asignaciones" usuarioNombre={props.usuario.nombre} usuarioImagen={props.usuario.img} />
       </div>
       
       <div className="row">
@@ -34,8 +34,6 @@ export default function ListadoAsignaciones(props) {
             </div>
           </div>
         )}
-
-      
     </section>
   );
 };

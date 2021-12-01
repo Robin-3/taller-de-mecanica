@@ -42,7 +42,7 @@ export default function Menu(props) {
               <React.Fragment></React.Fragment>
             } 
             {(props.rol === 'mecanico' || props.rol === 'administrador')?
-              <li className="btn btn-success w-100" style = {{margin:'1px 2px'}}>USUARIOS</li>:
+              <li className="btn btn-success w-100" onClick={() => props.cargarPagina('EstadoVehiculo')} style = {{margin:'1px 2px'}}>USUARIOS</li>:
               <React.Fragment></React.Fragment>
             } 
             <li className="btn btn-success w-100" onClick={() => props.cerrarSesion()} style = {{margin:'11px 2px'}}>CERRAR SESIÓN</li>

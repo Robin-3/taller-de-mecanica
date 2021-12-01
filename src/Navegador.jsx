@@ -9,6 +9,7 @@ import VehiculosRegistro from './paginas/VehiculosRegistro';
 import VehiculosCita from './paginas/VehiculosCita';
 import VehiculosAgenda from './paginas/VehiculosAgenda';
 import ListadoAsignaciones from './paginas/ListadoAsignaciones';
+import EstadoVehiculo from './paginas/EstadoVehiculo';
 
 export class Navegador extends React.Component {
   constructor(props) {
@@ -85,6 +86,9 @@ export class Navegador extends React.Component {
         ];
         return <ListadoAsignaciones usuario={usuario} asignaciones={asignaciones} />;
       }
+      if(this.state.actual === 'EstadoVehiculo')
+        return <EstadoVehiculo usuario={usuario} />;
+      
     }
 
     return <Bienvenida usuarioNombre={this.state.usuario.nombre} usuarioImagen={this.state.usuario.imagen} />
