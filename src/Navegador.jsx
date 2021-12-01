@@ -8,6 +8,7 @@ import DashboardServicios from './paginas/DashboardServicios';
 import VehiculosRegistro from './paginas/VehiculosRegistro';
 import VehiculosCita from './paginas/VehiculosCita';
 import VehiculosAgenda from './paginas/VehiculosAgenda';
+import ListadoAsignaciones from './paginas/ListadoAsignaciones';
 
 export class Navegador extends React.Component {
   constructor(props) {
@@ -73,6 +74,16 @@ export class Navegador extends React.Component {
         ];
 
         return <VehiculosAgenda usuario={usuario} agenda={agenda} />;
+      }
+      if(this.state.actual === 'ListadoAsignaciones'){
+        const asignaciones = [
+          {servicio: 'Revision de frenos' ,fecha: new Date(2021, 12, 2, 13), estado: 'Pendiente'},
+          {servicio: 'Alineación' ,fecha: new Date(2021, 1, 3, 16), estado: 'Pendiente'},
+          {servicio: 'Discos' ,fecha: new Date(2021, 12, 15, 13), estado: 'Pendiente'},
+          {servicio: 'Discos' ,fecha: new Date(2021, 12, 20, 11), estado: 'Pendiente'},
+          {servicio: 'Suspención' ,fecha: new Date(2021, 12, 5, 13), estado: 'Pendiente'},
+        ];
+        return <ListadoAsignaciones usuario={usuario} asignaciones={asignaciones} />;
       }
     }
 
