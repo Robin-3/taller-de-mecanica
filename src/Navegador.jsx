@@ -11,6 +11,7 @@ import VehiculosAgenda from './paginas/VehiculosAgenda';
 import ServiciosConfigurar from './paginas/ServiciosConfigurar';
 import ListadoAsignaciones from './paginas/ListadoAsignaciones';
 import EstadoVehiculo from './paginas/EstadoVehiculo';
+import Usuarios from './paginas/Usuarios';
 
 export class Navegador extends React.Component {
   constructor(props) {
@@ -110,6 +111,10 @@ export class Navegador extends React.Component {
       if(this.state.actual === 'estadoVehiculo') {
         return <EstadoVehiculo usuario={usuario} />;
       }
+    }
+    if(this.state.usuario.rol === 'administrador') {
+      if(this.state.actual === 'usuarios')
+        return <Usuarios usuario={usuario} />;
     }
 
     return <Bienvenida usuarioNombre={this.state.usuario.nombre} usuarioImagen={this.state.usuario.imagen} />
