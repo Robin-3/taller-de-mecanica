@@ -34,7 +34,7 @@ export default class VehiculosCita extends React.Component {
 
     const cita = {
       'placa': this.state.placa,
-      'servicio': document.getElementById('servicio-vehiculo').value,
+      'servicio': this.state.servicios[this.state.servicio],
     };
 
     console.log('Buscando citas para:', cita);
@@ -69,15 +69,15 @@ export default class VehiculosCita extends React.Component {
 
     const citas = {
       'placa': this.state.placa,
-      'servicio': document.getElementById('servicio-vehiculo').value,
-      'asignados': {},
+      'servicio': this.state.servicios[this.state.servicio],
+      'asignados': [],
     };
 
     let citasConfirmadas = [];
 
     for(const cita of this.state.citas)
       if(cita.asignado)
-        citasConfirmadas.push(cita);
+        citasConfirmadas.push(cita.fecha);
 
     citas.asignados = citasConfirmadas;
 

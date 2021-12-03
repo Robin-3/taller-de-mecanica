@@ -9,6 +9,7 @@ import VehiculosRegistro from './paginas/VehiculosRegistro';
 import VehiculosCita from './paginas/VehiculosCita';
 import VehiculosAgenda from './paginas/VehiculosAgenda';
 import ServiciosConfigurar from './paginas/ServiciosConfigurar';
+import ServiciosAsignar from './paginas/ServiciosAsignar';
 import ListadoAsignaciones from './paginas/ListadoAsignaciones';
 import EstadoVehiculo from './paginas/EstadoVehiculo';
 import Usuarios from './paginas/Usuarios';
@@ -96,6 +97,8 @@ export class Navegador extends React.Component {
 
         return <ServiciosConfigurar usuario={usuario} servicios={this.listaATabla(servicios, 2)} configurarServicio={(dato) => console.log('Cambiando datos: ', dato)} />;
       }
+      if(this.state.actual === 'serviciosAsignar')
+        return <ServiciosAsignar usuario={usuario} />;
     }
     if(this.state.usuario.rol === 'mecánico' || this.state.usuario.rol === 'administrador') {
       if(this.state.actual === 'listadoAsignaciones'){

@@ -2,7 +2,6 @@ import React from 'react';
 import HeaderInfo from '../componentes/HeaderInfo';
 import InputText from '../componentes/InputText';
 
-
 export default function ListadoAsignaciones(props) {
   return (
     <section className="container mt-3" style={{margin:'100px 2px',}}>

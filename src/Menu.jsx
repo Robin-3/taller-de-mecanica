@@ -28,7 +28,7 @@ export default function Menu(props) {
                     <button className="btn btn-success dropdown-toggle w-100" data-bs-toggle="dropdown" aria-expanded="false">SERVICIOS</button>
                     <ul className="dropdown-menu">
                       <li className="dropdown-item" onClick={() => props.cargarPagina('serviciosConfigurar')}>CONFIGURAR</li>
-                      <li className="dropdown-item">ASIGNAR</li>
+                      <li className="dropdown-item" onClick={() => props.cargarPagina('serviciosAsignar')}>ASIGNAR</li>
                     </ul>
                   </div>
                 </li>
