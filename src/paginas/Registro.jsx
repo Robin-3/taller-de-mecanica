@@ -21,7 +21,9 @@ export default class Registro extends React.Component {
             </div>
             <br />
             <br />
-            <MensajeError error={this.props.error} />
+            <div className="row text-center" style={{marginLeft: '10px',}}>
+              <MensajeError error={this.props.error} />
+            </div>
             <div className="row text-center">
             <div className="col-2"></div>
             <div className="col-8">

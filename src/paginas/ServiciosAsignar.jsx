@@ -87,7 +87,7 @@ export default class ServiciosAsignar extends React.Component {
               <h4>Asignado</h4>
             </div>
             <div className="col-8">
-              <h4>servicio</h4>
+              <h4>Servicio</h4>
             </div>
           </div>
           {this.state.servicios.map((servicio, index) =>
