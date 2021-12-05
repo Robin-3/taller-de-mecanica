@@ -27,6 +27,7 @@ export class Navegador extends React.Component {
         imagen: 'momo.png',
         rol: 'administrador',
       },
+      buscarVehiculo: null,
     };
   };
 
@@ -103,16 +104,32 @@ export class Navegador extends React.Component {
     if(this.state.usuario.rol === 'mecánico' || this.state.usuario.rol === 'administrador') {
       if(this.state.actual === 'listadoAsignaciones'){
         const asignaciones = [
-          {servicio: 'Revision de frenos' ,fecha: new Date(2021, 12, 2, 13), estado: 'Pendiente'},
-          {servicio: 'Alineación', fecha: new Date(2021, 1, 3, 16), estado: 'Pendiente',},
-          {servicio: 'Discos', fecha: new Date(2021, 12, 15, 13), estado: 'Pendiente',},
-          {servicio: 'Discos', fecha: new Date(2021, 12, 20, 11), estado: 'Pendiente',},
-          {servicio: 'Suspención', fecha: new Date(2021, 12, 5, 13), estado: 'Pendiente',},
+          {placa: 'ABC123', servicio: 'Revision de frenos', fecha: new Date(2021, 12, 2, 13), estado: 'Pendiente'},
+          {placa: 'ABC234', servicio: 'Alineación', fecha: new Date(2021, 1, 3, 16), estado: 'Pendiente',},
+          {placa: 'ABC345', servicio: 'Discos', fecha: new Date(2021, 12, 15, 13), estado: 'Pendiente',},
+          {placa: 'ABC456', servicio: 'Discos', fecha: new Date(2021, 12, 20, 11), estado: 'Pendiente',},
+          {placa: 'ABC567', servicio: 'Suspención', fecha: new Date(2021, 12, 5, 13), estado: 'Pendiente',},
         ];
-        return <ListadoAsignaciones usuario={usuario} asignaciones={asignaciones} cargarSubpagina={(p) => this.setState({actual: p})}/>;
+        return <ListadoAsignaciones usuario={usuario} asignaciones={asignaciones} cargarSubpagina={(p, vehiculo) => this.setState({actual: p, buscarVehiculo: vehiculo})} />;
       }
       if(this.state.actual === 'estadoVehiculo') {
-        return <EstadoVehiculo usuario={usuario} />;
+        const vehiculo = {
+          placa: this.state.buscarVehiculo,
+          modelo: 'Modelo',
+          marca: 'Marca',
+          combustible: 'Combustible',
+          transmision: 'Transmisión',
+          motor: 'Motor',
+          imagen: 'Imagen',
+          servicios: [
+            {servicio: 'Discos', completado: true, asignado: false,},
+            {servicio: 'Alineación', completado: false, asignado: true,},
+            {servicio: 'Amortiguadores', completado: false, asignado: false,},
+          ],
+          comentarios: ['Mensajes', 'Para poder', 'Hacer pruebas',],
+        };
+
+        return <EstadoVehiculo usuario={usuario} vehiculo={vehiculo} cambiarEstadoServicio={(dato) => console.log('Cambiando datos a: ', dato)} nuevoComentario={(dato) => console.log('Nuevo comentario: ', dato, ' por el usuario: ', this.state.usuario.id)} />;
       }
     }
     if(this.state.usuario.rol === 'administrador') {
