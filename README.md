@@ -2,9 +2,9 @@
 
 La empresa Taller De Mecánica ofrece servicios de reparación, mantenimiento, entre otros. Últimamente, la empresa Taller De Mecánica se ha encontrado a sí misma con el problema de que no tiene suficiente espacio para que sus clientes puedan parquear sus vehículos. Esto se debe a que no tienen una forma de medir en tiempo real la capacidad de sus instalaciones para dar cabida a vehículos. Por este motivo la empresa Taller De Mecánica lo ha contactado a usted y a su equipo para el desarrollo de una plataforma de agendamiento de citas para los diferentes servicios ofrecidos.
 
-- [ ] [Usuarios](#usuarios)
-- [ ] [Requisitos](#requisitos)
-- [ ] [Comandos](#comandos)
+> [ ] [Usuarios](#usuarios)
+> [ ] [Requisitos](#requisitos)
+> [Comandos](#comandos)
 
 ## Usuarios
 
@@ -59,26 +59,6 @@ La empresa Taller De Mecánica ofrece servicios de reparación, mantenimiento, e
 - [ ] Se debe utilizar una arquitectura desacoplada
   - [ ] Una API back end
   - [ ] Un front end que consuma dicha API.
-- [ ] La API back end debe estar desarrollada en Express.js.
+- [x] La API back end debe estar desarrollada en Express.js.
 - [x] El front end debe estar desarrollado en React.js.
 - [x] Se debe utilizar Bootstrap como librería CSS para manejar los estilos de su aplicación.
-
-## Comandos
-
-> Crear un proyecto de React
-> ```bash
-> npx create-react-app taller-de-mecanica
-> ```
-
-> Clonar el proyecto
-> ```bash
-> git clone https://github.com/Robin-3/taller-de-mecanica.git
-> cd taller-de-mecanica
-> npm i
-> ```
-
-> Iniciar el servidor
-> ```bash
-> npm start
-> ```
-
