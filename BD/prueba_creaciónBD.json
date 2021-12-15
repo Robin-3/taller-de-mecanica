@@ -1,0 +1,163 @@
+//dashboard
+{
+    "frenos": 45,
+    "pastillas": 68,
+    "discos": 23,
+    "suspension": 34,
+    "amortiguadores": 0,
+    "aceite": 56,
+    "alineacion": 0,
+    "rotacion": 0,
+    "mecanicos": [
+      {
+        "id": 2,
+        "asignaciones": {
+            "pastillas": 12
+        }
+      },
+      {
+        "id": 3,
+        "asignaciones": {
+        }
+      },
+      {
+        "id": 4,
+        "asignaciones": {
+            "discos": 23,
+            "suspension": 34,
+            "frenos": 45
+        }
+      },
+      {
+        "id": 5,
+        "asignaciones": {
+            "pastillas": 56,
+            "suspension": 67
+        }
+      }
+    ]
+  }
+  
+  //combustible
+  [
+    {id: 0, nombre: "gasolina"},
+    {id: 1, nombre: "gas"},
+    {id: 2, nombre: "diesel"},
+  ]
+  
+  //marca
+  [
+    {id: 0, nombre: "ford"},
+    {id: 1, nombre: "chevrolet"},
+    {id: 2, nombre: "ATX"}
+  ]
+  
+  //tranmision
+  {
+    {id: 0, nombre: "mecanica"},
+    {id: 1, nombre: "gasolina"},
+  }
+  
+  //vehiculos
+  {
+    "placa": "ABC123",
+    "modelo": 2002,
+    "marca": "ford",
+    "combustible": "gasolina",
+    "transmisión": "mecanica o automatica"
+    "motor": 2.5,
+    "imagen": ".jpeg, .png, .svg",
+    "asignaciones": [
+      {
+        "servicio": "frenos",
+        "fecha": date(),
+        "reparado": true,
+        "usuario": id_mecanico
+      },
+      {
+        "servicio": "pastillas",
+        "fecha: date(),
+        reparado: false,
+        usuario: id_mecanico
+      }
+    ],
+    comentarios: [
+      {id: usuario1, hora: date(), mensaje: "Hola"},
+      {id: usuario2, hora: date(), mensaje: "Youtube"}
+    ]
+  }
+  
+  //servicios
+  [
+    frenos: {
+      descripcion: "",
+      duracion: 15,
+      costo: 10000,
+      mecanico: [id1, id2, id3],
+      disponible: true
+    },
+    pastillas: {
+      descripcion: "",
+      duracion: 15,
+      costo: 10000,
+      mecanico: [id1, id2, id3],
+      disponible: true
+    },
+    discos: {
+      descripcion: "",
+      duracion: 15,
+      costo: 10000,
+      mecanico: [id1, id2, id3],
+      disponible: true
+    },
+    suspension: {
+      descripcion: "",
+      duracion: 15,
+      costo: 10000,
+      mecanico: [id1, id2, id3],
+      disponible: true
+    },
+    amortiguadores: {
+      descripcion: "",
+      duracion: 15,
+      costo: 10000,
+      mecanico: [id1, id2, id3],
+      disponible: true
+    },
+    aceite: {
+      descripcion: "",
+      duracion: 15,
+      costo: 10000,
+      mecanico: [id1, id2, id3],
+      disponible: true
+    },
+    alineacion: {
+      descripcion: "",
+      duracion: 15,
+      costo: 10000,
+      mecanico: [id1, id2, id3],
+      disponible: true
+    },
+    rotacion: {
+      descripcion: "",
+      duracion: 15,
+      costo: 10000,
+      mecanico: [id1, id2, id3],
+      disponible: true
+    }
+  ]
+  
+  //rol
+  [
+    {id: 0, descripcion: "mecanico"},
+    {id: 1, descripcion: "planta"},
+    {id: 2, descripcion: "administrador"}
+  ]
+  
+  //usuario
+  {
+    id: 123,
+    contraseña: "64 caracteres",
+    rol: "administrador"
+    imagen: "png"
+  }
