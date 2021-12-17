@@ -1,0 +1,201 @@
+use tallerMecanica
+
+db.dashboard.insert({
+  frenos: 45,
+  pastillas: 68,
+  discos: 23,
+  suspension: 34,
+  amortiguadores: 0,
+  aceite: 56,
+  alineacion: 0,
+  rotacion: 0,
+  mecanicos: [
+    {
+      id: 5,
+      asignaciones: {
+        pastillas: 12
+      }
+    },
+    {
+      id: 6,
+      asignaciones: {}
+    },
+    {
+      id: 7,
+      asignaciones: {
+        discos: 23,
+        suspension: 34,
+        frenos: 45
+      }
+    },
+    {
+      id: 8,
+      asignaciones: {
+        pastillas: 56,
+        suspension: 67
+      }
+    }
+  ]
+})
+
+db.vehiculos.insert({
+  placa: "UUW",
+  modelo: 2016,
+  marca: "Chevrolet",
+  combustible: "Diésel",
+  transmisión: "Mecánica",
+  motor: 2.5,
+  imagen: ".webp",
+  asignaciones: [
+    {
+      servicio: "frenos",
+      fecha: ISODate("2021-11-28T10:00:00.000Z"),
+      reparado: true,
+      usuario: 6
+    },
+    {
+      servicio: "pastillas",
+      fecha: ISODate("2021-11-28T11:30:00.000Z"),
+      reparado: false,
+      usuario: 5
+    }
+  ],
+  comentarios: [
+    {id: 6, hora: ISODate("2021-11-28T10:05:00.000Z"), mensaje: "Estado de frenos en buenas condiciones"}
+  ]
+})
+
+
+db.usuarios.insertMany([
+  {
+    id: 0,
+    contraseña: "1230",
+    rol: "Administrador",
+    imagen: ".png"
+  },
+  {
+    id: 1,
+    contraseña: "1231",
+    rol: "Administrador",
+    imagen: ".jpg"
+  },
+  {
+    id: 2,
+    contraseña: "1232",
+    rol: "De planta",
+    imagen: ".jpg"
+  },
+  {
+    id: 3,
+    contraseña: "1233",
+    rol: "De planta",
+    imagen: ".jpg"
+  },
+  {
+    id: 4,
+    contraseña: "1234",
+    rol: "De planta",
+    imagen: ".jpg"
+  },
+  {
+    id: 5,
+    contraseña: "1235",
+    rol: "Mecánico",
+    imagen: ".jpg"
+  },
+  {
+    id: 6,
+    contraseña: "1236",
+    rol: "Mecánico",
+    imagen: ".jpg"
+  },
+  {
+    id: 7,
+    contraseña: "1237",
+    rol: "Mecánico",
+    imagen: ".jpg"
+  },
+  {
+    id: 8,
+    contraseña: "1238",
+    rol: "Mecánico",
+    imagen: ".jpg"
+  }
+])
+
+
+db.servicios.insertMany([
+  {
+    nombre: "frenos",
+    descripcion: "",
+    duracion: 10,
+    costo: 10000,
+    mecanico: [5, 6, 7],
+    disponible: true
+  },
+  {
+    nombre: "pastillas",
+    descripcion: "",
+    duracion: 15,
+    costo: 10000,
+    mecanico: [5, 6, 8],
+    disponible: false
+  },
+  {
+    nombre: "discos",
+    descripcion: "",
+    duracion: 20,
+    costo: 10000,
+    mecanico: [7, 8],
+    disponible: true
+  },
+  {
+    nombre: "suspension",
+    descripcion: "",
+    duracion: 25,
+    costo: 10000,
+    mecanico: [5, 6, 7, 8],
+    disponible: false
+  },
+  {
+    nombre: "amortiguadores",
+    descripcion: "",
+    duracion: 30,
+    costo: 10000,
+    mecanico: [],
+    disponible: false
+  },
+  {
+    nombre: "aceite",
+    descripcion: "",
+    duracion: 35,
+    costo: 10000,
+    mecanico: [5],
+    disponible: true
+  },
+  {
+    nombre: "alineacion",
+    descripcion: "",
+    duracion: 40,
+    costo: 10000,
+    mecanico: [5, 8],
+    disponible: true
+  },
+  {
+    nombre: "rotacion",
+    descripcion: "",
+    duracion: 45,
+    costo: 10000,
+    mecanico: [5, 7],
+    disponible: true
+  }
+])
+
+
+
+
+
+
+
+
+-

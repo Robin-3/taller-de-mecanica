@@ -42,9 +42,9 @@ export default class Usuarios extends React.Component {
       return;
     }
 
-    const vehiculo = (({error, ...vehiculo}) => vehiculo)(this.state);
+    const usuario = (({error, ...usuario}) => usuario)(this.state);
 
-    console.log('Actualizando vehículo:', vehiculo);
+    console.log('Actualizando usuario:', usuario);
 
     this.setState({error: null});
   };

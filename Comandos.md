@@ -28,4 +28,5 @@
 > ```bash
 > call servidor.bat
 > ```
+> o doble click en el archivo `servidor.bat`
 

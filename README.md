@@ -5,6 +5,7 @@ La empresa Taller De Mecánica ofrece servicios de reparación, mantenimiento, e
 > - [ ] [Usuarios](#usuarios)
 > - [ ] [Requisitos](#requisitos)
 > - [Comandos](https://github.com/Robin-3/taller-de-mecanica/blob/main/Comandos.md)
+> - [Rutas](https://github.com/Robin-3/taller-de-mecanica/blob/main/Rutas.md)
 
 ## Usuarios
 
@@ -62,3 +63,4 @@ La empresa Taller De Mecánica ofrece servicios de reparación, mantenimiento, e
 - [x] La API back end debe estar desarrollada en Express.js.
 - [x] El front end debe estar desarrollado en React.js.
 - [x] Se debe utilizar Bootstrap como librería CSS para manejar los estilos de su aplicación.
+
