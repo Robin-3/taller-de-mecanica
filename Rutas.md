@@ -10,7 +10,7 @@
 - [x] /bienvenida           []
 - [x] /dashboard            [get]
 - [x] /dashboard/mecanicos  [get]
-- [ ] /dashboard/servicios  [get]
+- [x] /dashboard/servicios  [get]
 - [ ] /vehiculos/registro   [post, put, delete]
 - [ ] /vehiculos/cita       [get, post, put, delete]
 - [ ] /vehiculos/agenda     [get]

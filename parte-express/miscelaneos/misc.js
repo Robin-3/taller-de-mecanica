@@ -13,7 +13,7 @@ function renombrarServicios(s) {
         newKey = 'Amortiguadores';
         break;
       case 'discos':
-        newKey = 'Cambio de aceite';
+        newKey = 'Discos';
         break;
       case 'frenos':
         newKey = 'Revisión de frenos';
@@ -27,6 +27,8 @@ function renombrarServicios(s) {
       case 'suspension':
         newKey = 'Suspensión';
         break;
+      default:
+        newKey = 'Falta :'+key;
     }
     servicios[newKey] = value;
   }

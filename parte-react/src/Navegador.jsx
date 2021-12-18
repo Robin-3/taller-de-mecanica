@@ -85,16 +85,17 @@ export class Navegador extends React.Component {
         return <DashboardMecanicos usuario={usuario} mecanicos={this.listaATabla(mecanicos, 3)} />;
       }
       if(this.state.actual === 'dashboardServicios') {
-        const servicios = {
-          'Revisión de frenos': 45,
-          'Pastillas': 68,
-          'Discos': 23,
-          'Suspención': 34,
-          'Amortiguadores': 0,
-          'Cambio de aceite': 56,
-          'Alineación': 0,
-          'Rotación de llantas': 0,
-        };
+        if(this.state.APIroute !== '/dashboard/servicios') {
+          fetch('http://localhost:9000/dashboard/servicios')
+            .then(response => response.json())
+            .catch(err => console.log(err))
+            .then(data => this.setState({APIdata: data, APIroute: '/dashboard/servicios'}));
+        }
+
+        let servicios = {};
+
+        if(this.state.APIroute === '/dashboard/servicios' && this.state.APIdata)
+          servicios = this.state.APIdata;
 
         return <DashboardServicios usuario={usuario} servicios={servicios}/>;
       }

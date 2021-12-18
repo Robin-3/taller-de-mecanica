@@ -22,5 +22,14 @@ router.get('/mecanicos', async function(req, res, next) {
   }
 });
 
+router.get('/servicios', async function(req, res, next) {
+  try {
+    const servicios = await consultarServicios();
+    res.send(renombrarServicios(servicios));
+  } catch (error) {
+    res.send({error});
+  }
+});
+
 module.exports = router;
 
