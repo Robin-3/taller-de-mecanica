@@ -1,4 +1,4 @@
-const {conectar, desconectar} = require('./conexion.js');
+const {conectar, desconectar} = require('./conexion');
 
 async function consultarUsuarios() {
   try {
@@ -10,10 +10,14 @@ async function consultarUsuarios() {
   }
 }
 
-async function consultarUsuario(id, pass) {
+async function consultarUsuario(id, pass = null) {
   try {
     const db = await conectar();
-    const usuario = await db.collection('usuarios').findOne({'id': id, 'contraseña': pass});
+    const query = {};
+    query.id = id;
+    if(pass)
+      query.contraseña = pass;
+    const usuario = await db.collection('usuarios').findOne(query);
     return usuario;
   } finally {
     await desconectar();

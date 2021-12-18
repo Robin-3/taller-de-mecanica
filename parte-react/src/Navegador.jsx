@@ -67,12 +67,19 @@ export class Navegador extends React.Component {
         return <Dashboard usuario={usuario} cargarSubpagina={(p) => this.setState({actual: p})} mas={mas} menos={menos} />;
       }
       if(this.state.actual === 'dashboardMecanicos') {
-        const mecanicos = [
-          {id: 'M01', nombre: 'L', servicios: {'Pastillas': 12,}, img: 'ele.jpg',},
-          {id: 'M02', nombre: 'Usuario', servicios: {}, img: 'usuario.jpg',},
-          {id: 'M03', nombre: 'Juleka', servicios: {'Discos': 23, 'Suspencion': 34, 'Revisión de frenos': 45}, img: 'juleka.jpg',},
-          {id: 'M04', nombre: 'Kido', servicios: {'Pastillas': 56,'Cambio de aceite': 67,}, img: 'kido.jpg',},
-        ];
+
+        if(this.state.APIroute !== '/dashboard/mecanicos') {
+          fetch('http://localhost:9000/dashboard/mecanicos')
+            .then(response => response.json())
+            .catch(err => console.log(err))
+            .then(data => this.setState({APIdata: data, APIroute: '/dashboard/mecanicos'}));
+        }
+
+        let mecanicos = [];
+
+        if(this.state.APIroute === '/dashboard/mecanicos' && this.state.APIdata)
+          mecanicos = this.state.APIdata;
+
         mecanicos.forEach(datos => datos.img = <img className="img-fluid user-img" src={process.env.PUBLIC_URL + '/img/usuarios/' + datos.img} alt={datos.nombre} />);
 
         return <DashboardMecanicos usuario={usuario} mecanicos={this.listaATabla(mecanicos, 3)} />;
