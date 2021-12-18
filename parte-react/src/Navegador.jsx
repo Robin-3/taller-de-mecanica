@@ -20,15 +20,9 @@ export class Navegador extends React.Component {
     this.state = {
       actual: 'bienvenida',
       errorUsuario: null,
-      registrado: true,
-      usuario: {
-        id: 'A123',
-        nombre: 'Kisaragi Momo',
-        imagen: 'momo.png',
-        rol: 'administrador',
-      },
+      registrado: false,
+      usuario: {},
       buscarVehiculo: null,
-      apiResponse: '',
     };
   };
 
@@ -141,26 +135,33 @@ export class Navegador extends React.Component {
     return <Bienvenida usuarioNombre={this.state.usuario.nombre} usuarioImagen={this.state.usuario.imagen} />
   };
 
-  validarRegistro(registroDatos) {
+  async validarRegistro(registroDatos) {
     if(registroDatos.identificacion === '' || registroDatos.contrasena === '') {
       this.setState({errorUsuario: 'El campo "Identificación" ni el campo "Contraseña" deben de estar vacios'});
       return;
     }
 
-    const usuario = this.state.usuario;
-    usuario.id = registroDatos.identificacion.toUpperCase();
+    let usuarioDB = undefined;
 
-    if(usuario.id[0] === 'M')
+    await fetch('http://localhost:9000/login?id=' + registroDatos.identificacion + '&pass=' + registroDatos.contrasena)
+      .then(response => response.json())
+      .catch(err => this.setState({errorUsuario: 'El usuario no existe o la contraseña es incorrecta'}))
+      .then(data => usuarioDB = data);
+
+    if(!usuarioDB)
+      return;
+
+    const usuario = {};
+    usuario.imagen = usuarioDB.id + usuarioDB.imagen;
+    usuario.nombre = usuarioDB.nombre;
+    if(usuarioDB.rol === 'Mecánico')
       usuario.rol = 'mecánico';
-    else if(usuario.id[0] === 'P')
+    else if(usuarioDB.rol === 'De planta')
       usuario.rol = 'planta';
-    else if(usuario.id[0] === 'A')
+    else if(usuarioDB.rol === 'Administrador')
       usuario.rol = 'administrador';
     else
       usuario.rol = null;
-
-    console.log('Datos suministrados:', registroDatos);
-    console.log('Ingresando como:', usuario);
 
     this.setState({registrado: true, actual: 'bienvenida', errorUsuario: null, usuario: usuario});
   };
@@ -172,23 +173,13 @@ export class Navegador extends React.Component {
     return tabla;
   };
 
-  callAPI() {
-    fetch('http://localhost:9000/API')
-        .then(res => res.text())
-        .then(res => this.setState({apiResponse: res}));
-  };
-
-  componentDidMount() {
-    this.callAPI();
-  };
-
   render () {
     const paginaActual = this.state.registrado?
       <Menu actual={this.generarPagina()} cargarPagina={(p) => this.setState({actual: p})} cerrarSesion={() => this.setState({registrado: false})} rol={this.state.usuario.rol} />:
       <Registro validarRegistro={(r) => this.validarRegistro(r)} error={this.state.errorUsuario} />;
 
     return (
-      <React.Fragment>{paginaActual}<br />{this.state.apiResponse}</React.Fragment>
+      <React.Fragment>{paginaActual}</React.Fragment>
     );
   };
 };

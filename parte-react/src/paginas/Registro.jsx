@@ -28,7 +28,7 @@ export default class Registro extends React.Component {
             <div className="col-2"></div>
             <div className="col-8">
               <div className="row" >
-                <InputText classInput="col-9" id="identifiacion-registro" label="Identificación" classLabel="col-3" obtenerInfo={(dato) => this.setState({identificacion: dato})}/>
+                <InputText type="number" classInput="col-9" id="identifiacion-registro" label="Identificación" classLabel="col-3" obtenerInfo={(dato) => this.setState({identificacion: dato})}/>
                 <InputText classInput="col-9" type="password" id="contrasena-registro" label="Contraseña" classLabel="col-3" obtenerInfo={(dato) => this.setState({contrasena: dato})}/>
               </div>
               <br />

@@ -65,64 +65,71 @@ db.vehiculos.insert({
   ]
 })
 
-
 db.usuarios.insertMany([
   {
     id: 0,
+    nombre: "Kisaragi Momo",
     contraseña: "1230",
     rol: "Administrador",
     imagen: ".png"
   },
   {
     id: 1,
+    nombre: "Carlos Paez",
     contraseña: "1231",
     rol: "Administrador",
     imagen: ".jpg"
   },
   {
     id: 2,
+    nombre: "Rosa Hernández",
     contraseña: "1232",
     rol: "De planta",
     imagen: ".jpg"
   },
   {
     id: 3,
+    nombre: "Pedro Rincón",
     contraseña: "1233",
     rol: "De planta",
     imagen: ".jpg"
   },
   {
     id: 4,
+    nombre: "Yesid Rodríguez",
     contraseña: "1234",
     rol: "De planta",
     imagen: ".jpg"
   },
   {
     id: 5,
+    nombre: "Milena García",
     contraseña: "1235",
     rol: "Mecánico",
     imagen: ".jpg"
   },
   {
     id: 6,
+    nombre: "Ana Díaz",
     contraseña: "1236",
     rol: "Mecánico",
     imagen: ".jpg"
   },
   {
     id: 7,
+    nombre: "Juliana Gutierrez",
     contraseña: "1237",
     rol: "Mecánico",
     imagen: ".jpg"
   },
   {
     id: 8,
+    nombre: "Pedro Pérez",
     contraseña: "1238",
     rol: "Mecánico",
     imagen: ".jpg"
   }
 ])
-
 
 db.servicios.insertMany([
   {
