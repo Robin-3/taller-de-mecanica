@@ -23,16 +23,46 @@ export class Navegador extends React.Component {
       registrado: false,
       usuario: {},
       buscarVehiculo: null,
+      APIdata: null,
+      APIroute: '',
     };
   };
 
   generarPagina() {
     const usuario = {nombre: this.state.usuario.nombre, img: <img className="user-img" src={process.env.PUBLIC_URL + '/img/usuarios/' + this.state.usuario.imagen} alt={this.state.usuario.nombre} />,};
 
+    //this.setState({APIdata: null});
+
     if(this.state.usuario.rol === 'planta' || this.state.usuario.rol === 'administrador') {
       if(this.state.actual === 'dashboard') {
-        const mas = ['Pastillas',];
-        const menos = ['Amortiguadores', 'Alineación', 'Rotación de llantas',];
+
+        if(this.state.APIroute !== '/dashboard') {
+          fetch('http://localhost:9000/dashboard')
+            .then(response => response.json())
+            .catch(err => console.log(err))
+            .then(data => this.setState({APIdata: data, APIroute: '/dashboard'}));
+        }
+
+        let valMas = -1;
+        let valMenos = Infinity;
+        let mas = [];
+        let menos = [];
+
+        if(this.state.APIroute === '/dashboard' && this.state.APIdata) {
+          for (const [key, value] of Object.entries(this.state.APIdata)) {
+            if(value > valMas) {
+              valMas = value;
+              mas = [key];
+            } else if (value === valMas)
+              mas.push(key);
+
+            if(value < valMenos) {
+              valMenos = value;
+              menos = [key];
+            } else if (value === valMenos)
+              menos.push(key);
+          }
+        }
 
         return <Dashboard usuario={usuario} cargarSubpagina={(p) => this.setState({actual: p})} mas={mas} menos={menos} />;
       }

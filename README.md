@@ -56,7 +56,7 @@ La empresa Taller De Mecánica ofrece servicios de reparación, mantenimiento, e
 - [ ] Los datos suministrados por los usuarios deben cumplir la política de privacidad de datos vigente:
   - [ ] Contraseñas de los usuarios deben almacenarse de forma cifrada.
   - [ ] La conexión al servidor debe realizarse de forma segura.
-- [ ] La base de datos debe ser no relacional.
+- [x] La base de datos debe ser no relacional.
 - [ ] Se debe utilizar una arquitectura desacoplada
   - [ ] Una API back end
   - [ ] Un front end que consuma dicha API.

@@ -7,8 +7,8 @@ var cors = require('cors');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var APIRouter = require('./routes/API');
 var loginRouter = require('./routes/login');
+var dashboardRouter = require('./routes/dashboard');
 var usuarioRouter = require('./routes/usuario')
 var serviciosRouter = require('./routes/servicios')
 var vehiculosRouter = require('./routes/vehiculos')
@@ -28,8 +28,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/API', APIRouter);
 app.use('/login', loginRouter);
+app.use('/dashboard', dashboardRouter);
 app.use('/usuario',usuarioRouter)
 app.use('/servicios',serviciosRouter)
 app.use('/vehiculos',vehiculosRouter)

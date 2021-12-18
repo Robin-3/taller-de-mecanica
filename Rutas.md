@@ -6,9 +6,9 @@
 
 ## Express
 
-- [ ] /login                [get]
-- [ ] /bienvenida           []
-- [ ] /dashboard            [get]
+- [x] /login                [get]
+- [x] /bienvenida           []
+- [x] /dashboard            [get]
 - [ ] /dashboard/mecanicos  [get]
 - [ ] /dashboard/servicios  [get]
 - [ ] /vehiculos/registro   [post, put, delete]

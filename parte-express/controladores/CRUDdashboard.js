@@ -1,15 +1,15 @@
 const {conectar, desconectar} = require('./conexion.js');
 
-async function consultarDashboard() {
+async function consultarServicios() {
   try {
     const db = await conectar();
 
     const dashboard = await db.collection('dashboard').findOne();
-    return dashboard;
+    return (({mecanicos, _id, ...servicios}) => servicios)(dashboard);
   } finally {
     await desconectar();
   }
 }
 
-module.exports = {consultarDashboard};
+module.exports = {consultarServicios};
 
