@@ -20,7 +20,7 @@ export default function VehiculosAgenda(props) {
         {props.agenda.map((item, index) =>
           <div key={index} className="row border-top border-bottom">
             <div className="col-4 align-self-center">
-              {item.fecha.toString()}
+              {item.fecha}
             </div>
             <div className="col-4 align-self-center">
               {item.servicio}

@@ -43,7 +43,7 @@ db.vehiculos.insert({
   modelo: 2016,
   marca: "Chevrolet",
   combustible: "Diésel",
-  transmisión: "Mecánica",
+  transmision: "Mecánica",
   motor: 2.5,
   imagen: ".webp",
   asignaciones: [

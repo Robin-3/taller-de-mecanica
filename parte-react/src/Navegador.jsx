@@ -104,7 +104,19 @@ export class Navegador extends React.Component {
       if(this.state.actual === 'vehiculosCita')
         return <VehiculosCita usuario={usuario} />;
       if(this.state.actual === 'vehiculosAgenda') {
-        const agenda = [
+        if(this.state.APIroute !== '/vehiculos/agenda') {
+          fetch('http://localhost:9000/vehiculos/agenda')
+            .then(response => response.json())
+            .catch(err => console.log(err))
+            .then(data => this.setState({APIdata: data, APIroute: '/vehiculos/agenda'}));
+        }
+
+        let agenda = [];
+
+        if(this.state.APIroute === '/vehiculos/agenda' && this.state.APIdata)
+          agenda = this.state.APIdata;
+
+        /*const agenda = [
           {fecha: new Date(2021, 12, 2, 13), servicio: 'Alineación', mecanico: 'L'},
           {fecha: new Date(2021, 12, 2, 13), servicio: 'Alineación', mecanico: 'Kido'},
           {fecha: new Date(2021, 12, 2, 14), servicio: 'Alineación', mecanico: 'Kido'},
@@ -113,7 +125,7 @@ export class Navegador extends React.Component {
           {fecha: new Date(2021, 12, 2, 15), servicio: 'Discos', mecanico: 'L'},
           {fecha: new Date(2021, 12, 2, 16), servicio: 'Suspención', mecanico: 'Juleka'},
           {fecha: new Date(2021, 12, 2, 17), servicio: 'Amortiguadores', mecanico: 'L'},
-        ];
+        ];*/
 
         return <VehiculosAgenda usuario={usuario} agenda={agenda} />;
       }

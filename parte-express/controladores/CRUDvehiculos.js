@@ -1,5 +1,15 @@
 const {conectar, desconectar} = require('./conexion.js');
 
+async function consultarVehiculos() {
+  try {
+    const db = await conectar();
+    const vehiculos = await db.collection('vehiculos').find().toArray();
+    return vehiculos;
+  } finally {
+    await desconectar();
+  }
+}
+
 async function consultarVehiculo(placa) {
   try {
     const db = await conectar();
@@ -37,5 +47,5 @@ async function eliminarVehiculo(vehiculo) {
   }
 }
 
-module.exports = {consultarVehiculo, agregarVehiculo, editarVehiculo, eliminarVehiculo};
+module.exports = {consultarVehiculos, consultarVehiculo, agregarVehiculo, editarVehiculo, eliminarVehiculo};
 
