@@ -11,7 +11,7 @@
 - [x] /dashboard            [get]
 - [x] /dashboard/mecanicos  [get]
 - [x] /dashboard/servicios  [get]
-- [ ] /vehiculos/registro   [post, put, delete]
+- [x] /vehiculos/registro   [post, put, delete]
 - [ ] /vehiculos/cita       [get, post, put, delete]
 - [ ] /vehiculos/agenda     [get]
 - [ ] /servicios/configurar [get, put]

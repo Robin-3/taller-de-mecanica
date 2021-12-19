@@ -1,15 +1,32 @@
 const {conectar, desconectar} = require('./conexion.js');
 
-async function consultarVehiculos() {
+async function consultarVehiculo(placa) {
   try {
     const db = await conectar();
-
-    const vehiculos = await db.collection('vehiculos').findOne();
+    const vehiculos = await db.collection('vehiculos').findOne({placa: placa});
     return vehiculos;
   } finally {
     await desconectar();
   }
 }
 
-module.exports = {consultarVehiculos};
+async function agregarVehiculo(vehiculo) {
+  try {
+    const db = await conectar();
+    await db.collection('vehiculos').insertOne(vehiculo);
+  } finally {
+    await desconectar();
+  }
+}
+
+async function editarVehiculo(vehiculo) {
+  try {
+    const db = await conectar();
+    await db.collection('vehiculos').updateOne({placa: vehiculo.placa}, {$set: vehiculo.set, $currentDate: {lastModified: true}}, {});
+  } finally {
+    await desconectar();
+  }
+}
+
+module.exports = {consultarVehiculo, agregarVehiculo, editarVehiculo};
 

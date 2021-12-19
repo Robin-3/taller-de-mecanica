@@ -100,7 +100,7 @@ export class Navegador extends React.Component {
         return <DashboardServicios usuario={usuario} servicios={servicios}/>;
       }
       if(this.state.actual === 'vehiculosRegistro')
-        return <VehiculosRegistro usuario={usuario} />;
+        return <VehiculosRegistro usuario={usuario} actualizarVehiculo={(eliminar, vehiculo) => this.actualizarVehiculo(eliminar, vehiculo)} />;
       if(this.state.actual === 'vehiculosCita')
         return <VehiculosCita usuario={usuario} />;
       if(this.state.actual === 'vehiculosAgenda') {
@@ -210,6 +210,26 @@ export class Navegador extends React.Component {
       tabla.push(lista.slice(sublistaIndex*numeroColumnas, (sublistaIndex+1)*numeroColumnas));
     return tabla;
   };
+
+  actualizarVehiculo(eliminar, vehiculo) {
+    if(eliminar)
+      //fetch delete
+      console.log('Se eliminará el vehiculo de la placa: ' + vehiculo.placa);
+    else {
+      // fetch post
+      fetch('http://localhost:9000/vehiculos/registro', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+          // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: JSON.stringify(vehiculo)
+      })
+      .then(response => response.json())
+      .catch(err => console.log(err))
+      .then(data => console.log(data));
+    }
+  }
 
   render () {
     const paginaActual = this.state.registrado?

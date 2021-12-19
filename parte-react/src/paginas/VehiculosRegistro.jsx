@@ -24,11 +24,7 @@ export default class VehiculosRegistro extends React.Component {
       return;
     }
 
-    const vehiculo = {
-      placa: this.state.placa,
-    };
-
-    console.log('Eliminando vehículo:', vehiculo);
+    this.props.actualizarVehiculo(true, {placa: this.state.placa});
 
     this.setState({error: null});
   };
@@ -39,12 +35,47 @@ export default class VehiculosRegistro extends React.Component {
       return;
     }
 
+    /*if(this.state.imagen !== {}) {
+      const imagen = this.state.imagen.name.split('.');
+      fs.writeFile(process.env.PUBLIC_URL + '/img/vehiculos' + this.state.placa + '.' + imagen[imagen.length - 1], this.state.imagen);
+    }*/
     const vehiculo = (({error, ...vehiculo}) => vehiculo)(this.state);
-
-    console.log('Actualizando vehículo:', vehiculo);
+    if(this.state.imagen !== {}) {
+      const imagen = this.state.imagen.name.split('.');
+      vehiculo.imagen = '.' + imagen[imagen.length - 1];
+    } else
+      vehiculo.imagen = '';
+    this.props.actualizarVehiculo(false, vehiculo);
 
     this.setState({error: null});
   };
+
+  imagenUpload(e) {
+    const imagen = e.target.files[0];
+    /*this.getBase64(imagen).then(base64 => {
+      const element = document.createElement("a");
+      const file = new Blob([base64], {type: imagen.type});
+      element.href = URL.createObjectURL(file);
+      const ext = this.state.imagen.name.split('.');
+      const filename = this.state.placa + '.' + ext[ext.length - 1];
+      element.download = filename;
+      document.body.appendChild(element); // Required for this to work in FireFox
+      element.click();
+      element.remove();
+      //localStorage["fileBase64"] = base64;
+      console.log("file stored");
+    });*/
+    this.setState({imagen: imagen});
+  }
+
+  /*getBase64(file) {
+    return new Promise((resolve,reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = error => reject(error);
+      reader.readAsDataURL(file);
+    });
+  }*/
 
   render() {
     return (
@@ -68,7 +99,7 @@ export default class VehiculosRegistro extends React.Component {
             <InputText classInput="col-4" id="motor-vehiculo" label="Motor" classLabel="col-2" obtenerInfo={(dato) => this.setState({motor: dato})} />
             <label htmlFor="imagen-vehiculo" className="col-2" >Imagen</label>
             <div className="col-4" >
-              <input type="file" className="form-control-file" accept="image/*" id="imagen-vehiculo" onChange={(e) => this.setState({imagen: e.target.files[0]})} />
+              <input type="file" className="form-control-file" accept="image/*" id="imagen-vehiculo" onChange={(e) => this.imagenUpload(e)} />
             </div>
           </div>
           <br />
