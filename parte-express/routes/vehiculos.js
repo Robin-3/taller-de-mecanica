@@ -1,12 +1,11 @@
 var express = require('express');
-var {consultarVehiculo, agregarVehiculo, editarVehiculo} = require('../controladores/CRUDvehiculos');
+var {consultarVehiculo, agregarVehiculo, editarVehiculo, eliminarVehiculo} = require('../controladores/CRUDvehiculos');
 
 var router = express.Router();
 
 router.post('/registro', async function(req, res, next) {
   try {
     const consultar = await consultarVehiculo(req.body.placa.toUpperCase());
-    console.log(!consultar);
     const vehiculo = {};
     vehiculo.placa = req.body.placa.toUpperCase();
     if(!consultar) {
@@ -32,6 +31,19 @@ router.post('/registro', async function(req, res, next) {
       vehiculo.mongo = 'Update';
       res.send(vehiculo);
     }
+  } catch (error) {
+    res.send({error});
+  }
+});
+
+router.delete('/registro', async function(req, res, next) {
+  try {
+    const consultar = await consultarVehiculo(req.query.placa);
+    if(consultar) {
+      await eliminarVehiculo({placa: req.query.placa});
+      res.send({placa: req.query.placa});
+    } else
+      res.send({placa: 'Not found'});
   } catch (error) {
     res.send({error});
   }

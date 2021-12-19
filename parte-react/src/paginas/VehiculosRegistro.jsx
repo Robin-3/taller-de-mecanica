@@ -40,11 +40,12 @@ export default class VehiculosRegistro extends React.Component {
       fs.writeFile(process.env.PUBLIC_URL + '/img/vehiculos' + this.state.placa + '.' + imagen[imagen.length - 1], this.state.imagen);
     }*/
     const vehiculo = (({error, ...vehiculo}) => vehiculo)(this.state);
-    if(this.state.imagen !== {}) {
+    try {
       const imagen = this.state.imagen.name.split('.');
       vehiculo.imagen = '.' + imagen[imagen.length - 1];
-    } else
+    } catch {
       vehiculo.imagen = '';
+    }
     this.props.actualizarVehiculo(false, vehiculo);
 
     this.setState({error: null});

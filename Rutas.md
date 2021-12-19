@@ -13,7 +13,7 @@
 - [x] /dashboard/servicios  [get]
 - [x] /vehiculos/registro   [post, put, delete]
 - [ ] /vehiculos/cita       [get, post, put, delete]
-- [ ] /vehiculos/agenda     [get]
+- [x] /vehiculos/agenda     [get]
 - [ ] /servicios/configurar [get, put]
 - [ ] /servicios/asignar    [get, put]
 - [ ] /listadoAsignaciones  [get]

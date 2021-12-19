@@ -212,16 +212,18 @@ export class Navegador extends React.Component {
   };
 
   actualizarVehiculo(eliminar, vehiculo) {
-    if(eliminar)
-      //fetch delete
-      console.log('Se eliminará el vehiculo de la placa: ' + vehiculo.placa);
-    else {
-      // fetch post
+    if(eliminar) {
+      fetch('http://localhost:9000/vehiculos/registro?placa=' + vehiculo.placa, {
+        method: 'DELETE',
+      })
+      .then(response => response.json())
+      .catch(err => console.log(err))
+      .then(data => console.log(data));
+    } else {
       fetch('http://localhost:9000/vehiculos/registro', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
-          // 'Content-Type': 'application/x-www-form-urlencoded',
         },
         body: JSON.stringify(vehiculo)
       })
