@@ -20,13 +20,14 @@ export class Navegador extends React.Component {
     this.state = {
       actual: 'bienvenida',
       errorUsuario: null,
-      registrado: false,
-      usuario: {},
+      registrado: true,
+      usuario: {imagen: "0.png", nombre: "Kisaragi Momo", rol: "administrador"},
       buscarVehiculo: null,
       APIdata: null,
       APIroute: '',
     };
   };
+  // No olvidar borrar el usuario
 
   generarPagina() {
     const usuario = {nombre: this.state.usuario.nombre, img: <img className="user-img" src={process.env.PUBLIC_URL + '/img/usuarios/' + this.state.usuario.imagen} alt={this.state.usuario.nombre} />,};
@@ -101,8 +102,24 @@ export class Navegador extends React.Component {
       }
       if(this.state.actual === 'vehiculosRegistro')
         return <VehiculosRegistro usuario={usuario} actualizarVehiculo={(eliminar, vehiculo) => this.actualizarVehiculo(eliminar, vehiculo)} />;
-      if(this.state.actual === 'vehiculosCita')
-        return <VehiculosCita usuario={usuario} />;
+      if(this.state.actual === 'vehiculosCita') {
+        if(this.state.APIroute !== '/vehiculos/citas') {
+          const horaInicio = 480; //(8am) en minutos
+          const horaFin = 1080; //(6pm)
+          const diasFuturo = 3;
+          fetch('http://localhost:9000/vehiculos/citas?inicio='+horaInicio+'&fin='+horaFin+'&dias='+diasFuturo)
+            .then(response => response.json())
+            .catch(err => console.log(err))
+            .then(data => this.setState({APIdata: data, APIroute: '/vehiculos/citas'}));
+        }
+
+        let datos = [];
+
+        if(this.state.APIroute === '/vehiculos/citas' && this.state.APIdata)
+          datos = this.state.APIdata;
+
+        return <VehiculosCita usuario={usuario} datos={datos} actualizarAsignaciones={(citas) => this.actualizarAsignaciones(citas)} />;
+      }
       if(this.state.actual === 'vehiculosAgenda') {
         if(this.state.APIroute !== '/vehiculos/agenda') {
           fetch('http://localhost:9000/vehiculos/agenda')
@@ -115,17 +132,6 @@ export class Navegador extends React.Component {
 
         if(this.state.APIroute === '/vehiculos/agenda' && this.state.APIdata)
           agenda = this.state.APIdata;
-
-        /*const agenda = [
-          {fecha: new Date(2021, 12, 2, 13), servicio: 'Alineación', mecanico: 'L'},
-          {fecha: new Date(2021, 12, 2, 13), servicio: 'Alineación', mecanico: 'Kido'},
-          {fecha: new Date(2021, 12, 2, 14), servicio: 'Alineación', mecanico: 'Kido'},
-          {fecha: new Date(2021, 12, 2, 15), servicio: 'Pastillas', mecanico: 'Usuario'},
-          {fecha: new Date(2021, 12, 2, 15), servicio: 'Cambio de aceite', mecanico: 'Juleka'},
-          {fecha: new Date(2021, 12, 2, 15), servicio: 'Discos', mecanico: 'L'},
-          {fecha: new Date(2021, 12, 2, 16), servicio: 'Suspención', mecanico: 'Juleka'},
-          {fecha: new Date(2021, 12, 2, 17), servicio: 'Amortiguadores', mecanico: 'L'},
-        ];*/
 
         return <VehiculosAgenda usuario={usuario} agenda={agenda} />;
       }
@@ -243,6 +249,19 @@ export class Navegador extends React.Component {
       .catch(err => console.log(err))
       .then(data => console.log(data));
     }
+  }
+
+  actualizarAsignaciones(citas) {
+    fetch('http://localhost:9000/vehiculos/citas', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(citas)
+    })
+    .then(response => response.json())
+    .catch(err => console.log(err))
+    .then(data => console.log(data));
   }
 
   render () {

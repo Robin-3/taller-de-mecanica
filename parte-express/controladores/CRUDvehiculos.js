@@ -47,5 +47,14 @@ async function eliminarVehiculo(vehiculo) {
   }
 }
 
-module.exports = {consultarVehiculos, consultarVehiculo, agregarVehiculo, editarVehiculo, eliminarVehiculo};
+async function editarAsignaciones(vehiculo) {
+  try {
+    const db = await conectar();
+    await db.collection('vehiculos').updateOne({placa: vehiculo.placa}, {$set: vehiculo.set, $currentDate: {lastModified: true}}, {});
+  } finally {
+    await desconectar();
+  }
+}
+
+module.exports = {consultarVehiculos, consultarVehiculo, agregarVehiculo, editarVehiculo, eliminarVehiculo, editarAsignaciones};
 

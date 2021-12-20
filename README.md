@@ -30,14 +30,14 @@ La empresa Taller De Mecánica ofrece servicios de reparación, mantenimiento, e
   - [ ] Duración.
 - [ ] Modificar el estado de un servicio (disponible, no disponible).
 - [ ] Asignar un servicio a un usuario mecánico.
-- [ ] Ver agenda de citas por día de cada servicio.
+- [x] Ver agenda de citas por día de cada servicio.
 - [ ] Programar cita para un servicio indicando la placa del vehículo a revisar.
 - [ ] Cancelar una cita previamente solicitada (con mínimo 24 horas de antelación).
-- [ ] Generar los reportes de:
-  - [ ] Servicio más solicitado.
-  - [ ] Servicio menos solicitado.
-  - [ ] Listado de mecánicos y sus asignaciones por día.
-  - [ ] Servicios completados.
+- [x] Generar los reportes de:
+  - [x] Servicio más solicitado.
+  - [x] Servicio menos solicitado.
+  - [x] Listado de mecánicos y sus asignaciones por día.
+  - [x] Servicios completados.
 
 ### Usuario mecánico
 
@@ -57,9 +57,9 @@ La empresa Taller De Mecánica ofrece servicios de reparación, mantenimiento, e
   - [ ] Contraseñas de los usuarios deben almacenarse de forma cifrada.
   - [ ] La conexión al servidor debe realizarse de forma segura.
 - [x] La base de datos debe ser no relacional.
-- [ ] Se debe utilizar una arquitectura desacoplada
-  - [ ] Una API back end
-  - [ ] Un front end que consuma dicha API.
+- [x] Se debe utilizar una arquitectura desacoplada
+  - [x] Una API back end
+  - [x] Un front end que consuma dicha API.
 - [x] La API back end debe estar desarrollada en Express.js.
 - [x] El front end debe estar desarrollado en React.js.
 - [x] Se debe utilizar Bootstrap como librería CSS para manejar los estilos de su aplicación.

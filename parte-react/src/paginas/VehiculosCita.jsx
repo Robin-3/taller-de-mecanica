@@ -12,11 +12,11 @@ export default class VehiculosCita extends React.Component {
       citas: [],
       error: null,
       busqueda: false,
-      servicios: ['revisión-de-frenos', 'pastillas', 'alineación', 'rotación-de-llantas',],
+      servicios: [],
       servicio: 0,
-      servicioDescripcion: ['Es una técnica de conducción deportiva que hace más eficaz la frenada, además de evitar el desgaste y el sobrecalentamiento del sistema de frenos.', 'El promedio de duración de las pastillas es de 75.000 km dependiendo del uso y la marca, a estos dos factores hay que agregarle otras variables como el tipo de material (orgánico, semimetálico, metálico, sintético) o el modelo de vehículo.', 'En términos simples, la alineación de un vehículo es un proceso que permite ajustar los ángulos de las ruedas, manteniéndolas perpendiculares al suelo y paralelas entre sí.', 'A grandes rasgos la rotación de llantas hace referencia al tener que intercambiar la posición de las ruedas para asegurar que su desgaste sea uniforme, lo que propicia que la vida útil de las mismas se prolongue.',],
-      servicioCosto: ['8000', '35000', '40000', '5000',],
-      servicioDuracion: ['10 min', '30 min', '55 min', '5 min',],
+      servicioDescripcion: [],
+      servicioCosto: [],
+      servicioDuracion: [],
     };
   };
 
@@ -27,27 +27,31 @@ export default class VehiculosCita extends React.Component {
   };
 
   buscarCitas() {
+    if(this.state.servicios.length === 0) {
+      this.setState({error: 'No hay servicios disponibles, intente más tarde.'});
+      return;
+    }
+
     if(this.state.placa === '') {
       this.setState({error: 'Debe de ingresar una placa'});
       return;
     }
 
-    const cita = {
-      'placa': this.state.placa,
-      'servicio': this.state.servicios[this.state.servicio],
-    };
+    let citas = [[], []];
 
-    console.log('Buscando citas para:', cita);
+    for(const servicio of this.props.datos[this.state.servicio].servicios) {
+      for(const hora of servicio.horas) {
+        if(hora.asignacion === this.state.placa.toUpperCase())
+          citas[0].push({asignado: true, fecha: hora.hora, mecanico: servicio.mecanico, id: servicio.id, reparado: hora.reparado});
+        else if(hora.asignacion === '')
+          citas[1].push({asignado: false, fecha: hora.hora, mecanico: servicio.mecanico, id: servicio.id, reparado: hora.reparado});
+      }
+    }
 
-    const citas = [
-      {asignado: true, fecha: new Date(2021, 12, 2), mecanico: 'L',},
-      {asignado: false, fecha: new Date(2021, 12, 2), mecanico: 'Usuario',},
-      {asignado: false, fecha: new Date(2021, 12, 5), mecanico: 'Juleka',},
-      {asignado: false, fecha: new Date(2021, 12, 6), mecanico: 'Usuario',},
-      {asignado: false, fecha: new Date(2021, 12, 6), mecanico: 'Kido',},
-    ];
+    citas[0].sort((a, b) => a.fecha > b.fecha? 1: -1);
+    citas[1].sort((a, b) => a.fecha > b.fecha? 1: -1);
 
-    this.setState({citas: citas, error: null, busqueda: true});
+    this.setState({citas: citas[0].concat(citas[1]), error: null, busqueda: true});
   };
 
   actualizarAsignacion(index) {
@@ -62,6 +66,7 @@ export default class VehiculosCita extends React.Component {
       this.setState({error: 'Debe de ingresar una placa'});
       return;
     }
+
     if(!this.state.busqueda) {
       this.setState({error: 'Realiza la búsqueda del servicio'});
       return;
@@ -69,7 +74,7 @@ export default class VehiculosCita extends React.Component {
 
     const citas = {
       'placa': this.state.placa,
-      'servicio': this.state.servicios[this.state.servicio],
+      'servicio': this.props.datos[this.state.servicio].servicioDB,
       'asignados': [],
     };
 
@@ -77,16 +82,34 @@ export default class VehiculosCita extends React.Component {
 
     for(const cita of this.state.citas)
       if(cita.asignado)
-        citasConfirmadas.push(cita.fecha);
+        citasConfirmadas.push({fecha: cita.fecha, mecanico: cita.id, reparado: cita.reparado});
 
     citas.asignados = citasConfirmadas;
 
-    console.log('Cita reservada para: ', citas);
+    this.props.actualizarAsignaciones(citas);
 
     this.setState({error: null, busqueda: false, citas: []});
   }
 
+  generarOpciones() {
+    let servicios = [];
+    let servicioCosto = [];
+    let servicioDescripcion = [];
+    let servicioDuracion = [];
+    for(const dato of this.props.datos) {
+      servicios.push(dato.nombre);
+      servicioCosto.push(dato.costo);
+      servicioDescripcion.push(dato.descripcion);
+      servicioDuracion.push(dato.duracion);
+    }
+    this.setState({servicios, servicioCosto, servicioDescripcion, servicioDuracion});
+  }
+
   render() {
+    if(this.props.datos.length > 0)
+      if(this.state.servicios.length === 0)
+        this.generarOpciones();
+
     return (
       <section className="container mt-3">
         <div className="container col-10 backgroundNav">
@@ -104,25 +127,25 @@ export default class VehiculosCita extends React.Component {
           </div>
           <hr />
           <div className="row">
-            <div className="col-4">
+            <div className="col-2">
               <h4>Asignado</h4>
             </div>
-            <div className="col-4">
+            <div className="col-5">
               <h4>Fecha</h4>
             </div>
-            <div className="col-4">
+            <div className="col-5">
               <h4>Mecánico</h4>
             </div>
           </div>
           {this.state.citas.map((cita, index) =>
             <div key={index} className="row border-top border-bottom">
-              <div className="col-4 align-self-center">
+              <div className="col-2 align-self-center">
                 <input type="checkbox" id={index} checked={cita.asignado} onChange={() => this.actualizarAsignacion(index)} />
               </div>
-              <div className="col-4 align-self-center">
-                <label htmlFor={index}>{cita.fecha.toString()}</label>
+              <div className="col-5 align-self-center">
+                <label htmlFor={index}>{(new Date(cita.fecha)).toUTCString()}</label>
               </div>
-              <div className="col-4 align-self-center">
+              <div className="col-5 align-self-center">
                 <label htmlFor={index}>{cita.mecanico}</label>
               </div>
             </div>
