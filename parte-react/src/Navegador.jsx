@@ -136,18 +136,19 @@ export class Navegador extends React.Component {
         return <VehiculosAgenda usuario={usuario} agenda={agenda} />;
       }
       if(this.state.actual === 'serviciosConfigurar') {
-        const servicios = [
-          {nombre: 'Revisión de frenos', descripcion: 'Revisión descripción', costo: '5000', duracion: '10', disponible: true,},
-          {nombre: 'Pastillas', descripcion: 'Pastillas descripción', costo: '6000', duracion: '11', disponible: true,},
-          {nombre: 'Discos', descripcion: 'Discos descripción', costo: '7000', duracion: '12', disponible: false,},
-          {nombre: 'Suspención', descripcion: 'Suspención descripción', costo: '8000', duracion: '13', disponible: true,},
-          {nombre: 'Amortiguadores', descripcion: 'Amortiguadores descripción', costo: '9000', duracion: '14', disponible: true,},
-          {nombre: 'Cambio de aceite', descripcion: 'Cambio descripción', costo: '10000', duracion: '15', disponible: true,},
-          {nombre: 'Alineación', descripcion: 'Alineación descripción', costo: '11000', duracion: '16', disponible: true,},
-          {nombre: 'Rotación de llantas', descripcion: 'Rotación descripción', costo: '12000', duracion: '17', disponible: false,},
-        ];
+        if(this.state.APIroute !== '/servicios/configurar') {
+          fetch('http://localhost:9000/servicios/configurar')
+            .then(response => response.json())
+            .catch(err => console.log(err))
+            .then(data => this.setState({APIdata: data, APIroute: '/servicios/configurar'}));
+        }
 
-        return <ServiciosConfigurar usuario={usuario} servicios={this.listaATabla(servicios, 2)} configurarServicio={(dato) => console.log('Cambiando datos: ', dato)} />;
+        let servicios = [];
+
+        if(this.state.APIroute === '/servicios/configurar' && this.state.APIdata)
+          servicios = this.state.APIdata;
+
+        return <ServiciosConfigurar usuario={usuario} servicios={this.listaATabla(servicios, 2)} configurarServicio={(dato) => this.configurarServicios(dato)} />;
       }
       if(this.state.actual === 'serviciosAsignar')
         return <ServiciosAsignar usuario={usuario} />;
@@ -262,6 +263,19 @@ export class Navegador extends React.Component {
     .then(response => response.json())
     .catch(err => console.log(err))
     .then(data => console.log(data));
+  }
+
+  configurarServicios(servicio) {
+    fetch('http://localhost:9000/servicios/configurar', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(servicio)
+    })
+    .then(response => response.json())
+    .catch(err => console.log(err))
+    .then(data => this.setState({APIroute: ''}));
   }
 
   render () {

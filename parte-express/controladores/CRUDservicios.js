@@ -10,5 +10,14 @@ async function consultarServicios() {
   }
 }
 
-module.exports = {consultarServicios};
+async function editarServicio(servicio) {
+  try {
+    const db = await conectar();
+    await db.collection('servicios').updateOne({nombre: servicio.nombre}, {$set: servicio.set, $currentDate: {lastModified: true}}, {});
+  } finally {
+    await desconectar();
+  }
+}
+
+module.exports = {consultarServicios, editarServicio};
 
