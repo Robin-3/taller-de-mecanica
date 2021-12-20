@@ -13,7 +13,7 @@ export default class VehiculosRegistro extends React.Component {
       combustible: '',
       transmision: '',
       motor: '',
-      imagen: {},
+      imagen: '',
       error: null,
     };
   };
@@ -35,17 +35,7 @@ export default class VehiculosRegistro extends React.Component {
       return;
     }
 
-    /*if(this.state.imagen !== {}) {
-      const imagen = this.state.imagen.name.split('.');
-      fs.writeFile(process.env.PUBLIC_URL + '/img/vehiculos' + this.state.placa + '.' + imagen[imagen.length - 1], this.state.imagen);
-    }*/
     const vehiculo = (({error, ...vehiculo}) => vehiculo)(this.state);
-    try {
-      const imagen = this.state.imagen.name.split('.');
-      vehiculo.imagen = '.' + imagen[imagen.length - 1];
-    } catch {
-      vehiculo.imagen = '';
-    }
     this.props.actualizarVehiculo(false, vehiculo);
 
     this.setState({error: null});
@@ -53,30 +43,19 @@ export default class VehiculosRegistro extends React.Component {
 
   imagenUpload(e) {
     const imagen = e.target.files[0];
-    /*this.getBase64(imagen).then(base64 => {
-      const element = document.createElement("a");
-      const file = new Blob([base64], {type: imagen.type});
-      element.href = URL.createObjectURL(file);
-      const ext = this.state.imagen.name.split('.');
-      const filename = this.state.placa + '.' + ext[ext.length - 1];
-      element.download = filename;
-      document.body.appendChild(element); // Required for this to work in FireFox
-      element.click();
-      element.remove();
-      //localStorage["fileBase64"] = base64;
-      console.log("file stored");
-    });*/
-    this.setState({imagen: imagen});
+    this.getBase64(imagen).then(base64 => {
+      this.setState({imagen: base64});
+    });
   }
 
-  /*getBase64(file) {
+  getBase64(file) {
     return new Promise((resolve,reject) => {
       const reader = new FileReader();
       reader.onload = () => resolve(reader.result);
       reader.onerror = error => reject(error);
       reader.readAsDataURL(file);
     });
-  }*/
+  }
 
   render() {
     return (
