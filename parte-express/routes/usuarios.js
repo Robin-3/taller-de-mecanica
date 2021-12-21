@@ -1,4 +1,5 @@
 var express = require('express');
+var crypto = require('crypto');
 var {consultarUsuario, agregarUsuario, editarUsuario, eliminarUsuario} = require('../controladores/CRUDusuarios');
 
 var router = express.Router();
@@ -9,7 +10,8 @@ router.post('/', async function(req, res, next) {
     const usuario = {};
     usuario.id = parseInt(req.body.identificacion);
     if(!consultar) {
-      usuario.contrasena = req.body.contrasena;
+      const hash = crypto.createHash('sha256');
+      usuario.contrasena = hash.update(req.body.contrasena).digest('hex');
       usuario.rol = req.body.rol;
       usuario.imagen = req.body.imagen;
       usuario.nombre = req.body.nombre;
@@ -21,7 +23,11 @@ router.post('/', async function(req, res, next) {
       for(const [key, value] of Object.entries(req.body)) {
         if(key === 'identificacion' || value === '' || key === 'confirmarContrasena')
           continue;
-        usuario.set[key] = value;
+        if(key === 'contrasena') {
+          const hash = crypto.createHash('sha256');
+          usuario.set[key] = hash.update(value).digest('hex');
+        } else
+          usuario.set[key] = value;
       }
       await editarUsuario(usuario);
       usuario.mongo = 'Update';

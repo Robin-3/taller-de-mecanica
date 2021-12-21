@@ -1,4 +1,5 @@
 const {conectar, desconectar} = require('./conexion');
+var crypto = require('crypto');
 
 async function consultarUsuarios() {
   try {
@@ -15,8 +16,10 @@ async function consultarUsuario(id, pass = null) {
     const db = await conectar();
     const query = {};
     query.id = id;
-    if(pass)
-      query.contrasena = pass;
+    if(pass) {
+      const hash = crypto.createHash('sha256');
+      query.contrasena = hash.update(pass).digest('hex');
+    }
     const usuario = await db.collection('usuarios').findOne(query);
     return usuario;
   } finally {
