@@ -15,25 +15,25 @@ La empresa Taller De Mecánica ofrece servicios de reparación, mantenimiento, e
 
 ### Usuario de planta
 
-- [ ] Configurar los servicios ofrecidos por el taller:
-  - [ ] Revisión de frenos.
-  - [ ] Pastillas.
-  - [ ] Discos.
-  - [ ] Suspensión.
-  - [ ] Amortiguadores.
-  - [ ] Cambio de aceite.
-  - [ ] Alineación.
-  - [ ] Rotación de llantas.
-- [ ] Para cada uno de los servicios se debe indicar:
-  - [ ] Descripción.
-  - [ ] Costo.
-  - [ ] Duración.
-- [ ] Modificar el estado de un servicio (disponible, no disponible).
-- [ ] Asignar un servicio a un usuario mecánico.
+- [x] Configurar los servicios ofrecidos por el taller:
+  - [x] Revisión de frenos.
+  - [x] Pastillas.
+  - [x] Discos.
+  - [x] Suspensión.
+  - [x] Amortiguadores.
+  - [x] Cambio de aceite.
+  - [x] Alineación.
+  - [x] Rotación de llantas.
+- [x] Para cada uno de los servicios se debe indicar:
+  - [x] Descripción.
+  - [x] Costo.
+  - [x] Duración.
+- [x] Modificar el estado de un servicio (disponible, no disponible).
+- [x] Asignar un servicio a un usuario mecánico.
 - [x] Ver agenda de citas por día de cada servicio.
-- [ ] Programar cita para un servicio indicando la placa del vehículo a revisar.
-- [ ] Cancelar una cita previamente solicitada (con mínimo 24 horas de antelación).
-- [x] Generar los reportes de:
+- [x] Programar cita para un servicio indicando la placa del vehículo a revisar.
+- [ ] \(Falta: 24 horas de antelación) Cancelar una cita previamente solicitada (con mínimo 24 horas de antelación).
+- [ ] \(Falta: Actualizar al asignar citas) Generar los reportes de:
   - [x] Servicio más solicitado.
   - [x] Servicio menos solicitado.
   - [x] Listado de mecánicos y sus asignaciones por día.

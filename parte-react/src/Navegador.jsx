@@ -150,8 +150,21 @@ export class Navegador extends React.Component {
 
         return <ServiciosConfigurar usuario={usuario} servicios={this.listaATabla(servicios, 2)} configurarServicio={(dato) => this.configurarServicios(dato)} />;
       }
-      if(this.state.actual === 'serviciosAsignar')
-        return <ServiciosAsignar usuario={usuario} />;
+      if(this.state.actual === 'serviciosAsignar') {
+        if(this.state.APIroute !== '/servicios/asignar') {
+          fetch('http://localhost:9000/servicios/asignar')
+            .then(response => response.json())
+            .catch(err => console.log(err))
+            .then(data => this.setState({APIdata: data, APIroute: '/servicios/asignar'}));
+        }
+
+        let servicios = [];
+
+        if(this.state.APIroute === '/servicios/asignar' && this.state.APIdata)
+          servicios = this.state.APIdata;
+
+        return <ServiciosAsignar usuario={usuario} servicios={servicios} reasignacionServicios={(dato) => this.reasignacionServicios(dato)} />;
+      }
     }
     if(this.state.usuario.rol === 'mecánico' || this.state.usuario.rol === 'administrador') {
       if(this.state.actual === 'listadoAsignaciones'){
@@ -262,7 +275,7 @@ export class Navegador extends React.Component {
     })
     .then(response => response.json())
     .catch(err => console.log(err))
-    .then(data => console.log(data));
+    .then(data => this.setState({APIroute: ''}));
   }
 
   configurarServicios(servicio) {
@@ -272,6 +285,19 @@ export class Navegador extends React.Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(servicio)
+    })
+    .then(response => response.json())
+    .catch(err => console.log(err))
+    .then(data => this.setState({APIroute: ''}));
+  }
+
+  reasignacionServicios(dato) {
+   fetch('http://localhost:9000/servicios/asignar', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(dato)
     })
     .then(response => response.json())
     .catch(err => console.log(err))

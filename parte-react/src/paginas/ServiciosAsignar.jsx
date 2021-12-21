@@ -1,37 +1,63 @@
 import React from 'react';
 import HeaderInfo from '../componentes/HeaderInfo';
 import MensajeError from '../componentes/MensajeError';
-import InputText from '../componentes/InputText';
+import InputList from '../componentes/InputList';
 
 export default class ServiciosAsignar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      identificacion: '',
       servicios: [],
       error: null,
       busqueda: false,
+      mecanico: '',
     };
   };
 
   buscarServicios() {
-    if(this.state.identificacion === '') {
-      this.setState({error: 'Debe de ingresar una identificación'});
+    if(this.props.servicios.length === 0) {
+      this.setState({error: 'No existen mecánicos'});
       return;
     }
 
-    console.log('Buscando servicios para:', this.state.identificacion);
+    let mecanico;
+    if(this.state.mecanico === '')
+      mecanico = this.props.servicios[0].mecanico;
+    else
+      mecanico = this.state.mecanico.split(':')[0];
+    mecanico = parseInt(mecanico);
 
-    const servicios = [
-      {asignado: true, servicio: 'Revisión de frenos',},
-      {asignado: false, servicio: 'Pastillas',},
-      {asignado: true, servicio: 'Discos',},
-      {asignado: false, servicio: 'Suspensión',},
-      {asignado: false, servicio: 'Amortiguadores',},
-      {asignado: false, servicio: 'Cambio de aceite',},
-      {asignado: false, servicio: 'Alineación',},
-      {asignado: true, servicio: 'Rotación de llantas',},
+    for(const m of this.props.servicios)
+      if(m.mecanico === mecanico) {
+        mecanico = m;
+        break;
+      }
+
+    const serviciosDisponibles = [
+      'Revisión de frenos',
+      'Pastillas',
+      'Discos',
+      'Suspensión',
+      'Amortiguadores',
+      'Cambio de aceite',
+      'Alineación',
+      'Rotación de llantas',
     ];
+
+    let servicios = [];
+
+    for(const s of serviciosDisponibles) {
+      let asignado = false;
+      for(const ser of mecanico.servicios)
+        if(ser.nombre === s) {
+          asignado = true;
+          break;
+        }
+      const ser = {};
+      ser.servicio = s;
+      ser.asignado = asignado;
+      servicios.push(ser);
+    }
 
     this.setState({servicios: servicios, error: null, busqueda: true});
   };
@@ -44,29 +70,48 @@ export default class ServiciosAsignar extends React.Component {
   };
 
   guardarCambios() {
-    if(this.state.identificacion === '') {
-      this.setState({error: 'Debe de ingresar una identificación'});
-      return;
-    }
     if(!this.state.busqueda) {
       this.setState({error: 'Realiza la búsqueda del mecánico'});
       return;
     }
 
+    let mecanico;
+    if(this.state.mecanico === '')
+      mecanico = this.props.servicios[0].mecanico;
+    else
+      mecanico = this.state.mecanico.split(':')[0];
+    mecanico = parseInt(mecanico);
+
+    for(const m of this.props.servicios)
+      if(m.mecanico === mecanico) {
+        mecanico = m;
+        break;
+      }
+
     const servicios = {
-      'identificacion': this.state.identificacion,
+      'mecanico': mecanico.mecanico,
       'asignados': [],
     };
 
     let serviciosConfirmados = [];
 
+    const serviciosDisponibles = {
+      'Revisión de frenos': 'frenos',
+      'Pastillas': 'pastillas',
+      'Discos': 'discos',
+      'Suspensión': 'suspension',
+      'Amortiguadores': 'amortiguadores',
+      'Cambio de aceite': 'aceite',
+      'Alineación': 'alineacion',
+      'Rotación de llantas': 'rotacion',
+    };
+
     for(const servicio of this.state.servicios)
       if(servicio.asignado)
-        serviciosConfirmados.push(servicio.servicio);
-
+        serviciosConfirmados.push(serviciosDisponibles[servicio.servicio]);
     servicios.asignados = serviciosConfirmados;
 
-    console.log('Servicios asignados: ', servicios);
+    this.props.reasignacionServicios(servicios);
 
     this.setState({error: null, busqueda: false, servicios: []});
   }
@@ -78,7 +123,7 @@ export default class ServiciosAsignar extends React.Component {
           <HeaderInfo titulo="Asignar servicios" usuarioNombre={this.props.usuario.nombre} usuarioImagen={this.props.usuario.img} />
           <MensajeError error={this.state.error} />
           <div className="row">
-            <InputText classInput="col-6" id="placa-vehiculo" label="Identifiación del mecánico" classLabel="col-3" obtenerInfo={(dato) => this.setState({identificacion: dato})} />
+            <InputList classInput="col-6" id="id-usuario" label="Mecánico" classLabel="col-3" opciones={this.props.servicios.map((mecanico) => mecanico.mecanico+":"+mecanico.nombre)} obtenerInfo={(dato) => this.setState({mecanico: dato})} />
             <button className="btn btn-success col-3" onClick={() => this.buscarServicios()}>Buscar</button>
           </div>
           <hr />

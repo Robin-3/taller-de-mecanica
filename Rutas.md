@@ -15,7 +15,7 @@
 - [x] /vehiculos/cita       [get, post, put, delete]
 - [x] /vehiculos/agenda     [get]
 - [x] /servicios/configurar [get, put]
-- [ ] /servicios/asignar    [get, put]
+- [x] /servicios/asignar    [get, put]
 - [ ] /listadoAsignaciones  [get]
 - [ ] /estadoVehiculo       [get, put]
 - [ ] /usuarios             [post, put, delete]
