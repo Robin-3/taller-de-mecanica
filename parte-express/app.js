@@ -5,15 +5,13 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 var loginRouter = require('./routes/login');
 var dashboardRouter = require('./routes/dashboard');
 var vehiculosRouter = require('./routes/vehiculos');
 var serviciosRouter = require('./routes/servicios');
 var listadoAsignacionesRouter = require('./routes/listadoAsignaciones');
 var estadoVehiculoRouter = require('./routes/estadoVehiculo');
-var usuarioRouter = require('./routes/usuario')
+var usuariosRouter = require('./routes/usuarios');
 
 var app = express();
 
@@ -28,15 +26,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
 app.use('/login', loginRouter);
 app.use('/dashboard', dashboardRouter);
 app.use('/vehiculos', vehiculosRouter);
 app.use('/servicios', serviciosRouter);
 app.use('/listadoAsignaciones', listadoAsignacionesRouter);
 app.use('/estadoVehiculo', estadoVehiculoRouter);
-app.use('/usuario',usuarioRouter)
+app.use('/usuarios', usuariosRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

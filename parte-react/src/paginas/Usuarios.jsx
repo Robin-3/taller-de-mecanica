@@ -12,7 +12,8 @@ export default class Usuarios extends React.Component {
       contrasena: '',
       confirmarContrasena: '',
       rol: '',
-      imagen: {},
+      imagen: '',
+      nombre: '',
       error: null,
     };
   };
@@ -23,11 +24,7 @@ export default class Usuarios extends React.Component {
       return;
     }
 
-    const usuario = {
-      identificacion: this.state.identificacion,
-    };
-
-    console.log('Eliminando usuario:', usuario);
+    this.props.actualizarUsuario(true, {id: this.state.identificacion});
 
     this.setState({error: null});
   };
@@ -37,17 +34,36 @@ export default class Usuarios extends React.Component {
       this.setState({error: 'Debe de ingresar una identificacion'});
       return;
     }
+
     if(this.state.contrasena !== this.state.confirmarContrasena) {
       this.setState({error: 'Las contraseñas deben ser iguales'});
       return;
     }
 
     const usuario = (({error, ...usuario}) => usuario)(this.state);
+    if(this.state.rol === '')
+      usuario.rol = 'Mecánico';
 
-    console.log('Actualizando usuario:', usuario);
+    this.props.actualizarUsuario(false, usuario);
 
     this.setState({error: null});
   };
+
+  imagenUpload(e) {
+    const imagen = e.target.files[0];
+    this.getBase64(imagen).then(base64 => {
+      this.setState({imagen: base64});
+    });
+  }
+
+  getBase64(file) {
+    return new Promise((resolve,reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = error => reject(error);
+      reader.readAsDataURL(file);
+    });
+  }
 
   render() {
     return (
@@ -67,7 +83,10 @@ export default class Usuarios extends React.Component {
             <InputList classInput="col-4" id="rol-usuario" label="Rol" classLabel="col-2" opciones={['Mecánico', 'De planta', 'Administrador',]} obtenerInfo={(dato) => this.setState({rol: dato})} />
             <label htmlFor="imagen-usuario" className="col-2" >Imagen</label>
             <div className="col-4" >
-              <input type="file" className="form-control-file" accept="image/*" id="imagen-usuario" onChange={(e) => this.setState({imagen: e.target.files[0]})} />
+              <input type="file" className="form-control-file" accept="image/*" id="imagen-usuario" onChange={(e) => this.imagenUpload(e)} />
+            </div>
+            <div className="row" style={{margin:'10px 2px'}}>
+              <InputText classInput="col-4" id="nombre-usuario" label="Nombre" classLabel="col-2" obtenerInfo={(dato) => this.setState({nombre: dato})} />
             </div>
           </div>
           <br />

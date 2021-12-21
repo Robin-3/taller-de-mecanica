@@ -18,10 +18,10 @@ export class Navegador extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      actual: 'bienvenida',
+      actual: 'usuarios',
       errorUsuario: null,
       registrado: true,
-      usuario: {id: 6, imagen: "0.png", nombre: "Kisaragi Momo", rol: "mecánico"},
+      usuario: {id: 0, imagen: "0.png", nombre: "Kisaragi Momo", rol: "administrador"},
       buscarVehiculo: null,
       APIdata: null,
       APIroute: '',
@@ -202,7 +202,7 @@ export class Navegador extends React.Component {
     }
     if(this.state.usuario.rol === 'administrador') {
       if(this.state.actual === 'usuarios')
-        return <Usuarios usuario={usuario} />;
+        return <Usuarios usuario={usuario} actualizarUsuario={(eliminar, usuario) => this.actualizarUsuario(eliminar, usuario)} />;
     }
 
     return <Bienvenida usuarioNombre={this.state.usuario.nombre} usuarioImagen={this.state.usuario.imagen} />
@@ -336,6 +336,28 @@ export class Navegador extends React.Component {
       .catch(err => console.log(err))
       .then(data => this.setState({APIroute: ''}));
       }
+  }
+
+  actualizarUsuario(eliminar, usuario) {
+    if(eliminar) {
+      fetch('http://localhost:9000/usuarios?id=' + usuario.id, {
+        method: 'DELETE',
+      })
+      .then(response => response.json())
+      .catch(err => console.log(err))
+      .then(data => console.log(data));
+    } else {
+      fetch('http://localhost:9000/usuarios', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(usuario)
+      })
+      .then(response => response.json())
+      .catch(err => console.log(err))
+      .then(data => console.log(data));
+    }
   }
 
   render () {
