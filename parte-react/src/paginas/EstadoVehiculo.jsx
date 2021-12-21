@@ -9,17 +9,14 @@ export default class EstadoVehiculo extends React.Component {
     };
   };
 
-  cambioEstadoServicio(asignado, completado, servicio) {
-    const cambio = {};
-    cambio.completado = asignado? !completado: completado;
-    cambio.vehiculo = this.props.vehiculo.placa;
-    cambio.servicio = servicio;
-
-    this.props.cambiarEstadoServicio(cambio);
+  cambioEstadoServicio(servicio) {
+    if(servicio.seleccionado) {
+      servicio.reparado = !servicio.reparado;
+      this.props.cambiarEstadoServicio(servicio);
+    }
   };
 
   render() {
-
     return (
       <section className="container mt-3" style={{margin:'100px 2px',}}>
         <div className="container col-10 backgroundNav">
@@ -30,6 +27,9 @@ export default class EstadoVehiculo extends React.Component {
                 <h4 className="card-tittle text-center">Información</h4>
                 <div className="card-text text-center">
                   <div className="col">
+                    <div className="row">
+                      <img className="img-fluid" src={this.props.vehiculo.imagen} alt={this.props.vehiculo.placa} />
+                    </div>
                     <div className="row">
                       <p>Placa: {this.props.vehiculo.placa}</p>
                     </div>
@@ -53,13 +53,13 @@ export default class EstadoVehiculo extends React.Component {
               <div className="card-body">
                 <h4 className="card-tittle text-center">Servicios</h4>
                 <div className="card-text text-center">
-                  {this.props.vehiculo.servicios.map((servicio, index) =>
+                  {this.props.vehiculo.asignacion.map((servicio, index) =>
                     <div key={index} className="row">
                       <div className="col-md-auto">
-                        <input type="checkbox" id={index} onChange={() => this.cambioEstadoServicio(servicio.asignado, servicio.completado, servicio.servicio)} checked={servicio.completado} />
+                        <input type="checkbox" id={index} onChange={() => this.cambioEstadoServicio(servicio)} checked={servicio.reparado} />
                       </div>
                       <div className="col">
-                        <label htmlFor={index}>{servicio.servicio}</label>
+                        <label htmlFor={index}>{servicio.servicio}:{servicio.usuario}:{(new Date(servicio.fecha)).toUTCString()}</label>
                       </div>
                     </div>
                   )}
@@ -70,11 +70,11 @@ export default class EstadoVehiculo extends React.Component {
               <div className="card-body">
                 <h4 className="card-tittle text-center">Comentarios</h4>
                 <div className="row">
-                  <textarea value={this.props.vehiculo.comentarios.join('\n')} rows="10" className="form-control bg-white" readOnly />
+                  <textarea value={this.props.vehiculo.comentarios.map((val) => (new Date(val.hora)).toUTCString() + ':' + val.mecanico + ': ' + val.mensaje).join('\n')} rows="10" className="form-control bg-white" readOnly />
                 </div>
                 <div className="row">
                   <input className="col" onChange={(e) => this.setState({comentario: e.target.value})} value={this.state.comentario} />
-                  <button className="btn btn-success col-md-auto" onClick={() => this.props.nuevoComentario({comentario: this.state.comentario, hora: new Date(Date.now()).toString(), vehiculo: this.props.vehiculo.placa})}>⌅</button>
+                  <button className="btn btn-success col-md-auto" onClick={() => this.props.nuevoComentario({comentario: this.state.comentario, hora: new Date(Date.now()), vehiculo: this.props.vehiculo.placa})}>⌅</button>
                 </div>
               </div>
             </div>

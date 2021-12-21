@@ -12,10 +12,11 @@ router.get('/', async function(req, res, next) {
       for(const asignacion of consulta.asignaciones) {
         if(asignacion.usuario === parseInt(req.query.id)) {
           const a = {};
-          a.fecha = (new Date(asignacion.fecha)).toUTCString();
+          a.fecha = new Date(asignacion.fecha);
           a.estado = asignacion.reparado? 'Reparado': 'Pendiente';
           a.placa = consulta.placa;
           a.servicio = cambioNombre(asignacion.servicio);
+          a.servicioDB = asignacion.servicio;
           agenda.push(a);
         }
       }

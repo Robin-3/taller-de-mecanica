@@ -41,10 +41,10 @@ La empresa Taller De Mecánica ofrece servicios de reparación, mantenimiento, e
 
 ### Usuario mecánico
 
-- [ ] Asignar el estado de completado a un servicio.
-- [ ] Ver listado de sus asignaciones.
-- [ ] Añadir comentarios sobre el estado del vehículo de un servicio.
-- [ ] Cambiar estado (pendiente, en reparación, reparado)
+- [x] Asignar el estado de completado a un servicio.
+- [x] Ver listado de sus asignaciones.
+- [x] Añadir comentarios sobre el estado del vehículo de un servicio.
+- [x] Cambiar estado (pendiente, reparado)
 
 ### Administrador
 

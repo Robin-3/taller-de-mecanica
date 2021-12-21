@@ -23,12 +23,12 @@ export default function ListadoAsignaciones(props) {
         </div>
         <br />
         {props.asignaciones.map((item, index) =>
-          <div key={index} className="row border-top border-bottom" onClick={() => props.cargarSubpagina('estadoVehiculo', item.placa)} style={{cursor: 'pointer',}}>
+          <div key={index} className="row border-top border-bottom" onClick={() => props.cargarSubpagina('estadoVehiculo', item)} style={{cursor: 'pointer',}}>
             <div className="col-3 align-self-center">
               {item.servicio}
             </div>
             <div className="col-3 align-self-center">
-              {item.fecha.toString()}
+              {(new Date(item.fecha)).toUTCString()}
             </div>
             <div className="col-3 align-self-center">
               {item.estado}

@@ -17,7 +17,7 @@
 - [x] /servicios/configurar [get, put]
 - [x] /servicios/asignar    [get, put]
 - [x] /listadoAsignaciones  [get]
-- [ ] /estadoVehiculo       [get, put]
+- [x] /estadoVehiculo       [get, put]
 - [ ] /usuarios             [post, put, delete]
 
 ## Tutorial de conexion entre React y Express

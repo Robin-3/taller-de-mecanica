@@ -1,4 +1,6 @@
 const {conectar, desconectar} = require('./conexion.js');
+const {consultarUsuario} = require('./CRUDusuarios');
+var {cambioNombre} = require('../miscelaneos/misc');
 
 async function consultarVehiculos() {
   try {
@@ -10,11 +12,45 @@ async function consultarVehiculos() {
   }
 }
 
-async function consultarVehiculo(placa) {
+async function consultarVehiculo(placa, servicio = null, fecha = null, usuario = null) {
   try {
     const db = await conectar();
     const vehiculos = await db.collection('vehiculos').findOne({placa: placa});
-    return vehiculos;
+    let vehiculo = vehiculos;
+    if(servicio && fecha && usuario) {
+      vehiculo = {};
+      vehiculo.combustible = vehiculos.combustible;
+      vehiculo.imagen = vehiculos.imagen;
+      vehiculo.modelo = vehiculos.modelo;
+      vehiculo.marca = vehiculos.marca;
+      vehiculo.motor = vehiculos.motor;
+      vehiculo.placa = placa;
+      vehiculo.transmision = vehiculos.transmision;
+      vehiculo.asignacion = [];
+      for(const asignacion of vehiculos.asignaciones) {
+        const asig = {};
+        asig.seleccionado = (asignacion.servicio === servicio && (new Date(asignacion.fecha)).getTime() === (new Date(fecha)).getTime() && asignacion.usuario === usuario);
+        asig.fecha = new Date(fecha);
+        asig.reparado = asignacion.reparado;
+        asig.servicio = cambioNombre(asignacion.servicio);
+        asig.servicioDB = servicio;
+        asig.usuario = await consultarUsuario(asignacion.usuario);
+        asig.usuario = asig.usuario.nombre;
+        asig.usuarioDB = usuario;
+        vehiculo.asignacion.push(asig);
+      }
+      vehiculo.comentarios = [];
+      for(const comentario of vehiculos.comentarios) {
+        const com = {};
+        com.hora = comentario.hora;
+        com.id = comentario.id;
+        com.mecanico = await consultarUsuario(comentario.id);
+        com.mecanico = com.mecanico.nombre;
+        com.mensaje = comentario.mensaje;
+        vehiculo.comentarios.push(com);
+      }
+    }
+    return vehiculo;
   } finally {
     await desconectar();
   }

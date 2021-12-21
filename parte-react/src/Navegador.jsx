@@ -21,7 +21,7 @@ export class Navegador extends React.Component {
       actual: 'bienvenida',
       errorUsuario: null,
       registrado: true,
-      usuario: {id: 5, imagen: "0.png", nombre: "Kisaragi Momo", rol: "mecánico"},
+      usuario: {id: 6, imagen: "0.png", nombre: "Kisaragi Momo", rol: "mecánico"},
       buscarVehiculo: null,
       APIdata: null,
       APIroute: '',
@@ -183,23 +183,21 @@ export class Navegador extends React.Component {
         return <ListadoAsignaciones usuario={usuario} asignaciones={asignaciones} cargarSubpagina={(p, vehiculo) => this.setState({actual: p, buscarVehiculo: vehiculo})} />;
       }
       if(this.state.actual === 'estadoVehiculo') {
-        const vehiculo = {
-          placa: this.state.buscarVehiculo,
-          modelo: 'Modelo',
-          marca: 'Marca',
-          combustible: 'Combustible',
-          transmision: 'Transmisión',
-          motor: 'Motor',
-          imagen: 'Imagen',
-          servicios: [
-            {servicio: 'Discos', completado: true, asignado: false,},
-            {servicio: 'Alineación', completado: false, asignado: true,},
-            {servicio: 'Amortiguadores', completado: false, asignado: false,},
-          ],
-          comentarios: ['Mensajes', 'Para poder', 'Hacer pruebas',],
-        };
+        if(this.state.APIroute !== '/estadoVehiculo') {
+          fetch('http://localhost:9000/estadoVehiculo?placa=' + this.state.buscarVehiculo.placa + '&servicio=' + this.state.buscarVehiculo.servicioDB + '&fecha=' + this.state.buscarVehiculo.fecha + '&mecanico=' + this.state.usuario.id)
+            .then(response => response.json())
+            .catch(err => console.log(err))
+            .then(data => this.setState({APIdata: data, APIroute: '/estadoVehiculo'}));
+        }
 
-        return <EstadoVehiculo usuario={usuario} vehiculo={vehiculo} cambiarEstadoServicio={(dato) => console.log('Cambiando datos a: ', dato)} nuevoComentario={(dato) => console.log('Nuevo comentario: ', dato, ' por el usuario: ', this.state.usuario.id)} />;
+        let vehiculo = {};
+        vehiculo.asignacion = [];
+        vehiculo.comentarios = [];
+
+        if(this.state.APIroute === '/estadoVehiculo' && this.state.APIdata)
+          vehiculo = this.state.APIdata;
+
+        return <EstadoVehiculo usuario={usuario} vehiculo={vehiculo} cambiarEstadoServicio={(dato) => this.cambiarEstadoServicio(dato)} nuevoComentario={(dato) => this.nuevoComentario(dato)} />;
       }
     }
     if(this.state.usuario.rol === 'administrador') {
@@ -308,6 +306,36 @@ export class Navegador extends React.Component {
     .then(response => response.json())
     .catch(err => console.log(err))
     .then(data => this.setState({APIroute: ''}));
+  }
+
+  cambiarEstadoServicio(dato) {
+    dato.placa = this.state.buscarVehiculo.placa;
+    fetch('http://localhost:9000/estadoVehiculo/estado', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(dato)
+    })
+    .then(response => response.json())
+    .catch(err => console.log(err))
+    .then(data => this.setState({APIroute: ''}));
+  }
+
+  nuevoComentario(dato) {
+    if(dato.comentario !== '') {
+      dato.usuario = this.state.usuario.id;
+      fetch('http://localhost:9000/estadoVehiculo/comentario', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(dato)
+      })
+      .then(response => response.json())
+      .catch(err => console.log(err))
+      .then(data => this.setState({APIroute: ''}));
+      }
   }
 
   render () {
