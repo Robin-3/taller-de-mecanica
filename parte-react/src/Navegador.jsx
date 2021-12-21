@@ -21,7 +21,7 @@ export class Navegador extends React.Component {
       actual: 'bienvenida',
       errorUsuario: null,
       registrado: true,
-      usuario: {imagen: "0.png", nombre: "Kisaragi Momo", rol: "administrador"},
+      usuario: {id: 5, imagen: "0.png", nombre: "Kisaragi Momo", rol: "mecánico"},
       buscarVehiculo: null,
       APIdata: null,
       APIroute: '',
@@ -168,13 +168,18 @@ export class Navegador extends React.Component {
     }
     if(this.state.usuario.rol === 'mecánico' || this.state.usuario.rol === 'administrador') {
       if(this.state.actual === 'listadoAsignaciones'){
-        const asignaciones = [
-          {placa: 'ABC123', servicio: 'Revision de frenos', fecha: new Date(2021, 12, 2, 13), estado: 'Pendiente'},
-          {placa: 'ABC234', servicio: 'Alineación', fecha: new Date(2021, 1, 3, 16), estado: 'Pendiente',},
-          {placa: 'ABC345', servicio: 'Discos', fecha: new Date(2021, 12, 15, 13), estado: 'Pendiente',},
-          {placa: 'ABC456', servicio: 'Discos', fecha: new Date(2021, 12, 20, 11), estado: 'Pendiente',},
-          {placa: 'ABC567', servicio: 'Suspención', fecha: new Date(2021, 12, 5, 13), estado: 'Pendiente',},
-        ];
+        if(this.state.APIroute !== '/listadoAsignaciones') {
+          fetch('http://localhost:9000/listadoAsignaciones?id='+this.state.usuario.id)
+            .then(response => response.json())
+            .catch(err => console.log(err))
+            .then(data => this.setState({APIdata: data, APIroute: '/listadoAsignaciones'}));
+        }
+
+        let asignaciones = [];
+
+        if(this.state.APIroute === '/listadoAsignaciones' && this.state.APIdata)
+          asignaciones = this.state.APIdata;
+
         return <ListadoAsignaciones usuario={usuario} asignaciones={asignaciones} cargarSubpagina={(p, vehiculo) => this.setState({actual: p, buscarVehiculo: vehiculo})} />;
       }
       if(this.state.actual === 'estadoVehiculo') {
@@ -222,6 +227,7 @@ export class Navegador extends React.Component {
       return;
 
     const usuario = {};
+    usuario.id = usuarioDB.id;
     usuario.imagen = usuarioDB.id + usuarioDB.imagen;
     usuario.nombre = usuarioDB.nombre;
     if(usuarioDB.rol === 'Mecánico')

@@ -11,9 +11,8 @@ var loginRouter = require('./routes/login');
 var dashboardRouter = require('./routes/dashboard');
 var vehiculosRouter = require('./routes/vehiculos');
 var serviciosRouter = require('./routes/servicios');
+var listadoAsignacionesRouter = require('./routes/listadoAsignaciones');
 var usuarioRouter = require('./routes/usuario')
-
-
 
 var app = express();
 
@@ -32,9 +31,10 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/login', loginRouter);
 app.use('/dashboard', dashboardRouter);
+app.use('/vehiculos', vehiculosRouter);
+app.use('/servicios', serviciosRouter);
+app.use('/listadoAsignaciones', listadoAsignacionesRouter);
 app.use('/usuario',usuarioRouter)
-app.use('/servicios',serviciosRouter)
-app.use('/vehiculos',vehiculosRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
