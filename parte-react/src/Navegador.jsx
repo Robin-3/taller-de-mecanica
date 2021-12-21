@@ -20,19 +20,16 @@ export class Navegador extends React.Component {
     this.state = {
       actual: 'usuarios',
       errorUsuario: null,
-      registrado: true,
-      usuario: {id: 0, imagen: "0.png", nombre: "Kisaragi Momo", rol: "administrador"},
+      registrado: false,
+      usuario: {},
       buscarVehiculo: null,
       APIdata: null,
       APIroute: '',
     };
   };
-  // No olvidar borrar el usuario
 
   generarPagina() {
-    const usuario = {nombre: this.state.usuario.nombre, img: <img className="user-img" src={process.env.PUBLIC_URL + '/img/usuarios/' + this.state.usuario.imagen} alt={this.state.usuario.nombre} />,};
-
-    //this.setState({APIdata: null});
+    const usuario = {nombre: this.state.usuario.nombre, img: <img className="user-img" src={this.state.usuario.imagen} alt={this.state.usuario.nombre} />,};
 
     if(this.state.usuario.rol === 'planta' || this.state.usuario.rol === 'administrador') {
       if(this.state.actual === 'dashboard') {
@@ -226,8 +223,8 @@ export class Navegador extends React.Component {
 
     const usuario = {};
     usuario.id = usuarioDB.id;
-    usuario.imagen = usuarioDB.id + usuarioDB.imagen;
     usuario.nombre = usuarioDB.nombre;
+    usuario.imagen = usuarioDB.imagen;
     if(usuarioDB.rol === 'Mecánico')
       usuario.rol = 'mecánico';
     else if(usuarioDB.rol === 'De planta')

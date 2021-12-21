@@ -72,7 +72,7 @@ export default class Usuarios extends React.Component {
           <HeaderInfo titulo="Usuarios" usuarioNombre={this.props.usuario.nombre} usuarioImagen={this.props.usuario.img} />
           <MensajeError error={this.state.error} />
           <div className="row" style={{margin:'10px 2px'}}>
-            <InputText classInput="col-7" id="identificacion-usuario" label="Identificación" classLabel="col-2" obtenerInfo={(dato) => this.setState({identificacion: dato})} />
+            <InputText type="number" classInput="col-7" id="identificacion-usuario" label="Identificación" classLabel="col-2" obtenerInfo={(dato) => this.setState({identificacion: dato})} />
             <button className="btn btn-success col-2" onClick={() => this.eliminarUsuario()} style={{marginLeft:'10px'}}>Eliminar</button>
           </div>
           <div className="row" style={{margin:'10px 2px'}}>
